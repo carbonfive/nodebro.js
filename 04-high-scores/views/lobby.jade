@@ -7,6 +7,8 @@ block nav
         .container
           .brand nodebro.js
           ul.secondary-nav
+            li.active
+              a(href="/") Welcome #{ nickname }
             li
               a(href="/logout") logout
 
@@ -15,3 +17,18 @@ block content
     h1 Welcome to Nodebro.js
     p Grab a friend and play this retro platformer.
     a(href='nodebro.js.html').btn.primary.large Start Game
+
+  table
+    thead
+      tr
+        th #
+        th Name
+        th Date
+        th Score
+    tbody
+      - for score, index in scores
+       tr
+         td= index+1
+         td= score.nickname
+         td= String(new Date(score.updated)).replace(/^\w{3}\s|\d{4}\s|GMT.*$/g,'')
+         td= score.score

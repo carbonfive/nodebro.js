@@ -1,5 +1,6 @@
 var express = require('express');
 var sessions = require( "cookie-sessions" );
+var highscores = require('./lib/highscores.js' );
 var app = express.createServer();
 
 app.configure(function(){
@@ -19,7 +20,12 @@ function authenticate( req, res, next ) {
 }
 
 app.get('/', authenticate, function( req, res ) {
-  res.render('lobby');
+  return highscores.all( withScores );
+
+  function withScores( err, scores ) {
+    if ( err ) res.error( err );
+    res.render('lobby', {nickname:req.session.nickname, scores:scores} );
+  }
 });
 
 app.post('/login', function( req, res ) {
