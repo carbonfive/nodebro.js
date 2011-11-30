@@ -1,0 +1,16 @@
+{ "name": "Getting Real-(time) with Node.js", 
+  "sections": [ 
+    {"section":"introduction"},
+    {"section":"what-is-node-js"},
+    {"section":"getting-started"},
+    {"section":"whats-the-big-deal"},
+    {"section":"serving-content"},
+    {"section":"where-did-we-get-express"},
+    {"section":"getting-fancy"},
+    {"section":"going-modular"},
+    {"section":"finally-websockets"},
+    {"section":"testing"},
+    {"section":"deploying-your-app"},
+    {"section":"resources"}
+  ]
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Physics Test</title>
+	<style type="text/css" media="screen">
+		html {
+			height: 100%;
+		}
+	</style>
+  <script type="text/javascript" src="physics.js"></script>
+	<script type="text/javascript" charset="utf-8">
+    var PLATFORM_WIDTH = 20, LEVEL_SPACING = 95;
+    var PLATFORMS = [[0,PLATFORM_WIDTH,600],[0,LEVEL_SPACING+PLATFORM_WIDTH,220],[380,LEVEL_SPACING+PLATFORM_WIDTH,220],
+                     [150,2*LEVEL_SPACING+PLATFORM_WIDTH,300], [0,3*LEVEL_SPACING+PLATFORM_WIDTH,220],
+                     [380,3*LEVEL_SPACING+PLATFORM_WIDTH,220]];
+
+		function el(id) { return document.getElementById(id); }
+		function range(n,f) { var a=[]; for (var i=0; i<n; i++) a.push(f(i)); return a; }
+    function absmax(x,max) { return x>=0 ? Math.max(x,max) : Math.min(x,-max); }
+    function absmin(x,max) { return x>=0 ? Math.min(x,max) : Math.max(x,-max); }
+
+		function init() {
+      window.onkeydown = handleKeyDown;
+      window.onkeyup = handleKeyUp;
+		}
+
+    function init() {
+      var engine = Physics( -4000, 4000 );
+      draw();
+      PLATFORMS.forEach( function(p,i) { engine.addFixture( 0, 'platform-'+i, { 
+          x:p[0], y:p[1]-PLATFORM_WIDTH, width:p[2], height:PLATFORM_WIDTH } ) } );
+      engine.addFixture( 0, 'left-wall', {x:-5, y:0, width:5, height:800} );
+      engine.addFixture( 0, 'right-wall', {x:600, y:0, width:5, height:800} );
+
+      var coinIndex = 0;
+      engine.addBox( 0, 'coin-'+(coinIndex++), { x:80, y:385, width:20, height:20, vx:400, friction:false });
+      engine.addBox( 2, 'coin-'+(coinIndex++), { x:550, y:385, width:20, height:20, vx:-400, friction:false });
+      engine.addBox( 3, 'coin-'+(coinIndex++), { x:1, y:385, width:20, height:20, vx:400, friction:false });
+
+
+      /*
+      engine.addFixture( 0, "platform-0", {x:0, y:0, width:600, height:20 } )
+      engine.addFixture( 0, "platform-1", {x:0, y:200, width:600, height:20 } )
+      engine.addFixture( 0, "platform-2", {x:0, y:300, width:600, height:20 } )
+      engine.addBox( 0, "box1", {x:0, y:21, width:30, height:30, vx:20 } );
+      engine.alter( 1, "box1", { ay:16 } );
+      engine.alter( 6, "box1", { ay:0 } );
+      engine.addBox( 0, "box2", {x:560, y:20, width:20, height:20, vx:-20, vy:40 } );
+      engine.addFixture( 0, "platform", {x:280, y:50, width:200, height:20 } )
+      engine.addBox( 4, "box1", {x:200, y:230, width:20, height:20, vx:30, maxVy:40 } );
+//      engine.alter(8.1, 'box2', {friction:false}, 'a' );
+      engine.alter( 13.419165993007114, 'box2', {vy:30}, 'fish' );
+      */
+      drawEvents(engine.update(0,5));
+    }
+
+    function draw() {
+      var ctx = el('display').getContext('2d');
+      ctx.save();
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0,0,ctx.canvas.width, ctx.canvas.height);
+      ctx.restore();
+    }
+
+    function drawEvents(events) {
+      console.log(events);
+      var ctx = el('display').getContext('2d');
+      ctx.save();
+      ctx.translate(0,ctx.canvas.height); ctx.scale(1,-1);
+
+      ctx.strokeStyle = '#9cf';
+      ctx.lineWidth=.5;
+      var last = {};
+      for (var i=0,ev; ev=events[i]; i++) {
+        for ( var id in ev.altered ) {
+          if ( last[id] ) drawBoxTrajectory( ctx, last[id][1], ev.time-last[id][0] );
+          if ( ! ev.altered[id].fixed ) last[id] = [ev.time, ev.altered[id]];
+        }
+      }
+      ctx.stroke();
+
+      ctx.strokeStyle = '#fff';
+      ctx.fillStyle = 'rgba(255,205,0,.4)'; 
+      ctx.lineWidth=1;
+      for (var i=0,ev1; ev1=events[i]; i++) {
+        ctx.strokeStyle = {start:'#fff',end:'#fff',rl:'#f66',lr:'#f66',tb:'#f66',bt:'#f66',
+                           dr:'#6f6',dl:'#6f6',alteration:'#66f',maxvx:'#6ff',maxvy:'#6ff'}[ev1.type];
+        for ( var id in ev1.altered ) {
+          ctx.beginPath();
+          ctx.rect( ev1.altered[id].x, ev1.altered[id].y, ev1.altered[id].width, ev1.altered[id].height );
+          if (ev1.altered[id].fixed) ctx.fill(); else ctx.stroke();
+        }
+      }
+
+      ctx.restore();
+    }
+
+    function drawBoxTrajectory( ctx, box, dt ) {
+      drawTrajectory( ctx, box.x, box.y, box.vx, box.vy, box.ax, box.ay, dt );
+      drawTrajectory( ctx, box.x + box.width, box.y, box.vx, box.vy, box.ax, box.ay, dt );
+      drawTrajectory( ctx, box.x, box.y + box.height, box.vx, box.vy, box.ax, box.ay, dt );
+      drawTrajectory( ctx, box.x + box.width, box.y + box.height, box.vx, box.vy, box.ax, box.ay, dt );
+    }
+
+    var N = 10;
+    function drawTrajectory( ctx, x, y, vx, vy, ax, ay, dt ) {
+      var t=dt/N,nx,ny,nvx,nvy;
+      ctx.moveTo( x, y );
+      for ( var i=1; i <= N; i++ ) {
+        var nx=ax*t*t/2+vx*t+x, ny=ay*t*t/2+vy*t+y, nvx=ax*t+vx, nvy=ay*t+vy, dist=Math.sqrt((x-nx)*(x-nx) + (y-ny)*(y-ny))
+            vscale=.4*dist/Math.sqrt(vx*vx+vy*vy), nvscale=.4*dist/Math.sqrt(nvx*nvx+nvy*nvy)
+        ctx.bezierCurveTo( x+vscale*vx, y+vscale*vy, nx-nvscale*nvx, ny-nvscale*nvy, nx, ny );
+        x = nx, y=ny, vx=nvx, vy=nvy;
+      }
+    }
+	</script>
+</head>
+<body onload="init()">
+	<canvas id="display" width="600" height="400"></canvas>
+</body>
+</html>
