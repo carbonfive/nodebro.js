@@ -1,0 +1,17 @@
+extends layout
+
+block nav
+  .topbar-wrapper
+    .topbar
+      .topbar-inner
+        .container
+          .brand nodebro.js
+          ul.secondary-nav
+            li
+              a(href="/logout") logout
+
+block content
+  .hero-unit
+    h1 Welcome to Nodebro.js
+    p Grab a friend and play this retro platformer.
+    a(href='nodebro.js.html').btn.primary.large Start Game

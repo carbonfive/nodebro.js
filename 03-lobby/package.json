@@ -1,0 +1,9 @@
+{
+  "name" : "nodebro.js",
+  "version" : "0.0.1",
+  "dependencies" : {
+    "express" : "2.5",
+    "jade"    : "0.8",
+    "less"    : "1.1"
+  }
+}
