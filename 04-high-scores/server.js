@@ -23,13 +23,25 @@ app.get('/', authenticate, function( req, res ) {
   return highscores.all( withScores );
 
   function withScores( err, scores ) {
-    if ( err ) res.error( err );
+    if ( err ) return res.error( err );
     res.render('lobby', {nickname:req.session.nickname, scores:scores} );
   }
 });
 
+app.get('/game', authenticate, function( req, res ) {
+  res.render('nodebro.js.jade', {nickname:req.session.nickname});
+});
+
+app.post('/win', authenticate, function( req, res ) {
+  return highscores.win( req.body.nickname, onSave );
+  function onSave( err ) {
+    if ( err ) return res.error( err );
+    res.send( 201 );
+  }
+});
+
 app.post('/login', function( req, res ) {
-  (req.session = req.session || {}).nickname = req.body.nickname;
+  (req.session = req.session || {}).nickname = req.body.nickname.toLowerCase();;
   res.redirect('/');
 });
 
