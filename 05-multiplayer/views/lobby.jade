@@ -1,0 +1,32 @@
+extends layout
+
+block scripts
+  script(language="javascript",src="/socket.io/socket.io.js")
+  script(language="javascript",src="/jquery-1.7.1.min.js")
+  script(language="javascript",src="/jquery.mustache.js")
+  script(language="javascript",src="/bootstrap-alerts.js")
+  script(language="javascript")
+    var nickname = "#{ nickname }";
+  script(language="javascript",src="/lobby.js")
+
+block content
+  #alerts
+  .hero-unit
+    h1 Welcome to Nodebro.js
+    p Grab a friend and play this retro platformer.
+
+  table#highscores
+    thead
+      tr
+        th #
+        th Status
+        th Name
+        th Date
+        th Score
+    tbody
+      - for score, index in scores
+       tr
+         td= index+1
+         td= score.nickname
+         td= String(new Date(score.updated)).replace(/^\w{3}\s|\d{4}\s|GMT.*$/g,'')
+         td= score.score

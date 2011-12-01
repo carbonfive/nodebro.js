@@ -1,0 +1,15 @@
+extends layout
+
+block scripts
+  style(type="text/css")
+    #display {
+      display: block;
+      margin: 0 auto;
+    }
+  script(type="text/javascript",src="physics.js")
+  script(type="text/javascript",src="nodebro.js")
+  script(language="javascript",charset="utf-8")
+    var nickname = '#{ nickname }';
+
+block content
+  canvas(id="display",width="600",height="400")
