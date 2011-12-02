@@ -6,10 +6,12 @@ block scripts
       display: block;
       margin: 0 auto;
     }
-  script(type="text/javascript",src="physics.js")
-  script(type="text/javascript",src="nodebro.js")
+  script(language="javascript",src="/socket.io/socket.io.js")
+  script(type="text/javascript",src="/nodebro.js")
   script(language="javascript",charset="utf-8")
     var nickname = '#{ nickname }';
+    var gameId = '#{ gameId }';
+    var isHost = #{ isHost };
 
 block content
   canvas(id="display",width="600",height="400")

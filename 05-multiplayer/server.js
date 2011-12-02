@@ -4,6 +4,7 @@ var highscores = require('./lib/highscores.js' );
 var app = express.createServer();
 var io = require("socket.io").listen(app);
 var lobby = require("./lib/lobby").init(io);
+var game = require("./lib/game").init(io);
 
 app.configure(function(){
   app.use(express.errorHandler({ showStack: true, dumpExceptions: true }));
@@ -13,6 +14,7 @@ app.configure(function(){
   app.use( express.bodyParser() );
   app.use(express.compiler({ src:__dirname+'/public', enable:['less'] }));
   app.use(express.static(__dirname+'/public'));
+  io.set('log level', 1);
 });
 
 function authenticate( req, res, next ) {
@@ -21,23 +23,27 @@ function authenticate( req, res, next ) {
   return next();
 }
 
-app.get('/', authenticate, function( req, res ) {
+app.get('/', authenticate, function( req, res, next ) {
   return highscores.all( withScores );
 
   function withScores( err, scores ) {
-    if ( err ) return res.error( err );
+    if ( err ) return next( err );
     res.render('lobby', {nickname:req.session.nickname, scores:scores} );
   }
 });
 
-app.get('/game', authenticate, function( req, res ) {
-  res.render('nodebro.js.jade', {nickname:req.session.nickname});
+app.get('/game/:player/:id', authenticate, function( req, res ) {
+  res.render('nodebro.js.jade', {
+    nickname:req.session.nickname,
+    isHost : req.params.player == '1' ? true : false,
+    gameId:req.params.id
+  } );
 });
 
-app.post('/win', authenticate, function( req, res ) {
+app.post('/win', authenticate, function( req, res, next ) {
   return highscores.win( req.body.nickname, onSave );
   function onSave( err ) {
-    if ( err ) return res.error( err );
+    if ( err ) next( err );
     res.send( 201 );
   }
 });
