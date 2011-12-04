@@ -2,11 +2,12 @@ extends layout
 
 block scripts
   style(type="text/css")
-    #alerts { position: absolute; width: 200px; left:905px;  }
+    #alerts { position: absolute; width: 280px; left:50%; top:45px; margin-left:-140px;  }
   script(language="javascript",src="/socket.io/socket.io.js")
   script(language="javascript",src="/jquery-1.7.1.min.js")
   script(language="javascript",src="/jquery.mustache.js")
   script(language="javascript",src="/bootstrap-alerts.js")
+  script(language="javascript",src="/bootstrap-modal.js")
   script(language="javascript")
     var nickname = "#{ nickname }";
   script(language="javascript",src="/lobby.js")
@@ -32,3 +33,18 @@ block content
          td= score.nickname
          td= String(new Date(score.updated)).replace(/^\w{3}\s|\d{4}\s|GMT.*$/g,'')
          td= score.score
+
+  #inviting.alert-message.block-message.info.modal.fade.hide
+    | Waiting for 
+    strong#inviting-invitee
+    |  to accept your invitation.
+    .alert-actions
+      a#cancel-invitation.btn.small Cancel
+
+  #invite.alert-message.block-message.modal.info.hide
+    strong#inviting-host
+    |  has invited you to play a game.
+    .alert-actions
+      a#accept-invitation.btn.small Accept
+      | 
+      a#decline-invitation.btn.small Decline
