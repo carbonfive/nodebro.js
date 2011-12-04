@@ -1,6 +1,8 @@
 extends layout
 
 block scripts
+  style(type="text/css")
+    #alerts { position: absolute; width: 200px; left:905px;  }
   script(language="javascript",src="/socket.io/socket.io.js")
   script(language="javascript",src="/jquery-1.7.1.min.js")
   script(language="javascript",src="/jquery.mustache.js")
