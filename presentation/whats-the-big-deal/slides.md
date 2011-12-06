@@ -2,25 +2,74 @@
 # What's the Big Deal?
 
 !SLIDE
-## HAWT
+# STUPIDEST REASON?
 
 !SLIDE
-## Same Language on Client and Server
+# It's HAWT, bro!
+
+![jobgraph.png](jobgraph.png)
 
 !SLIDE
-## It's Fast
+![brogrammer](brogrammer.jpg)
 
 !SLIDE
-## "Non-Blocking" Event Loop
+# Same Language on
+# Client and Server
+
+    @@@ javascript
+    setTimeout(function() {
+      console.log('World!');
+    }, 2000);
+
+    console.log("Hello!");
 
 !SLIDE
-## Blocking
+# "Non-Blockig" I/O
 
 !SLIDE
-## Non-Blocking
+# Evented I/O
+
+!SLIDE smaller
+
+* Ruby
+
+      @@@ ruby
+      def index
+        count = Users.count
+        render :text => count
+      end
+
+* Javascript
+
+      @@@ javascript
+      app.get('/', function(req,res) {
+        var count = users.count(function(err,count) {
+          res.send(count);
+        });
+      });
+
+!SLIDE incremental
+# Scenario
+
+* 1 process running our app
+* 2 requests come in concurrently
+* For each request:
+  * 50ms of processing
+  * 200ms to run a database query
+  * 50ms to generate a response
+* How long will it take?
+
+!SLIDE center
+# Blocking
+
+![blocking-timeline](blocking-timeline.png)
 
 !SLIDE
-## Let's See the Numbers
+# Non-Blocking
+![nonblocking-timeline](nonblocking-timeline.png)
 
 !SLIDE
-## ... vs. Optimized
+# Let's See the Numbers
+
+!SLIDE
+# ... vs. Optimized

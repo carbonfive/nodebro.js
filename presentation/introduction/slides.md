@@ -1,25 +1,46 @@
 !SLIDE
 # Getting Real(-time) with Node.js
 
-!SLIDE
-* Rudy/[@rudy](http://twitter.com/rudy)
-* Alex/[@sivoh](http://twitter.com/sivoh)
+!SLIDE comparison
+* ![alex](alex.jpg)
+
+  Alex Cruikshank
+
+  [@sivoh](http://twitter.com/sivoh)
+* ![rudy](rudy.jpg)
+
+  Rudy
+
+  [@rudy](http://twitter.com/rudy)
 
 !SLIDE
-## #nodebrojs
+# Carbon Five
+![Carbon Five](c5.png)
 
 !SLIDE
-nodebro.js demo
+![HTML5](html5.png)
 
-!SLIDE incremental
-## Our Goal Today
+!SLIDE comparison
+* ![Carbon Five](c5.png)
 
-ONLINE MULTIPLAYER NODEBRO.JS
+  2000
+
+* ![HTML5](html5.png)
+
+  2010
 
 !SLIDE
-## HOW?
+# #nodebrojs
 
-Websockets & Node.js
+!SLIDE bullets incremental
+# Our Goal Today
+
+* ONLINE MULTIPLAYER NODEBRO.JS
 
 !SLIDE
-## Websockets
+# HOW?
+
+# ![html5-websockets](html5-websockets.png) + ![nodejs-logo](nodejs-logo.png)
+
+!SLIDE
+![html5](html5-websockets-large.png)

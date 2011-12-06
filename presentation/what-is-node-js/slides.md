@@ -1,28 +1,55 @@
 !SLIDE
-# What is Node.js?
+# What is ![node.js](nodejs-logo.png)?
 
 !SLIDE
-## JavaScript on the Server
+# JavaScript on the Server
 
-!SLIDE
-## V8
+!SLIDE bullets incremental center
+![V8](V8.png)
 
-!SLIDE
-image showing use of V8
+<ul>
+<li class="chrome-logo"><img src="/image/what-is-node-js/chrome-logo.png" ></li>
+<li class="browser-events">
+<ul>
+<li>load</li>
+<li>click</li>
+<li>submit</li>
+</ul>
+</li>
+<li class="nodejs-logo"><img src="/image/what-is-node-js/nodejs-logo.png" ></li>
+<li class="server-events">
+<ul>
+<li>connect</li>
+<li>interrupt</li>
+<li>open</li>
+</ul>
+</li>
+</ul>
 
-!SLIDE
-Ryan Dahl
-Image
-URL
+!SLIDE full-page=ryandahl.png
+# Ryan Dahl
+![Ryan Dahl](ryandahl.png)
 
-!SLIDE
-## Versions
+[@ryan](http://twitter.com/ryah)
 
-!SLIDE
-## Growth
+[http://github.com/ryah](http://github.com/ryah)
 
-!SLIDE
-## Libraries
+!SLIDE bullets incremental
+# Growth
 
-!SLIDE
-## #1 Watched
+* ![Jobs Growth](jobgraph.png)
+
+!SLIDE bullets incremental
+# Growth
+
+* ![Node Committers](node-commits-committers.jpg)
+
+!SLIDE bullets incremental
+# Libraries
+
+* ![Libraries](npm-registry.png)
+
+!SLIDE bullets incremental
+# #1 Watched
+
+* ![!Most Watched](most-watched.png)

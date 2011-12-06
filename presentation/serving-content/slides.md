@@ -2,16 +2,26 @@
 # Serving Content
 
 !SLIDE
-## Long Example: Verbose
+# Long Example: Verbose
+
+!SLIDE center screenshot expressjs
+# [http://expressjs.com](http://expressjs.com)
 
 !SLIDE
-## Express
+# configure
 
 !SLIDE
-## configure
+# get
 
-!SLIDE
-## get
+!SLIDE small
+# listen
 
-!SLIDE
-## listen
+    @@@ javascript
+    var express = require('express');
+    var app = express.createServer();
+
+    app.configure(function(){
+      app.use(express.static(__dirname+'/public'));
+    });
+
+    app.listen( 8500 );

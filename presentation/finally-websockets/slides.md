@@ -2,37 +2,31 @@
 # Websockets
 
 !SLIDE
-## HTML5
+![html5-websockets](html5-websockets-large.png)
 
 !SLIDE
-## Connecting
+# W3C
 
 !SLIDE
-## Sending
+# Standard Events
 
 !SLIDE
-## Receiving
+# Libraries
 
 !SLIDE
-## Broadcasting
+# socket.io
 
 !SLIDE
-## on() Events
+# on() Events
 
 !SLIDE
-## Libraries
+# Who's Online
 
 !SLIDE
-## Socket.io
-
-!SLIDE
-## Who's Online
+# Namespace
 
 !SLIDE
 ## Multiplayer Game!
-
-!SLIDE
-## Events to control players
 
 !SLIDE
 ## Moving physics to the server

@@ -1,39 +1,49 @@
 !SLIDE
 # Getting Started
 
-!SLIDE
-## Installing
+!SLIDE center screenshot nodejsorg
+# [http://nodejs.org](http://nodej.org)
 
 !SLIDE
-## Compiling
+# Compiling
 
-!SLIDE
-## Homebrew On MacOSX
+!SLIDE commandline incremental
+# Mac OSX : Homebrew
 
-!SLIDE
-## Running
+    $ /usr/bin/ruby -e \
+      "$(curl -fsSL https://raw.github.com/gist/323731)"
 
-    @@@ sh
+    $ brew install node
+
+!SLIDE commandline incremental
+# Running
+
     $ node
     > console.log('Hello, World!')
-    Hello World!
-    >
-
-!SLIDE
-## Or ...
-
-    @@@ sh
-    $ node helloWorld.js
     Hello, World!
     $
 
-!SLIDE smaller
-## Hello Web
+!SLIDE commandline incremental
+# Or ...
+
+    $ node helloWorld.js
+    Hello, World!
+
+!SLIDE smaller command
+# helloWorldServer.js
 
     @@@ javascript
     var http = require('http');
-    http.createServer(function (req, res) {
-      res.writeHead(200, {'Content-Type': 'text/plain'});
+
+    var server = http.createServer(function (req, res) {
+      res.writeHead(200, {
+        'Content-Type': 'text/plain'
+      });
       res.end('Hello World\n');
-    }).listen(1337, "127.0.0.1");
-    console.log('Server running at http://127.0.0.1:1337/');
+    });
+
+    server.listen(1337, "127.0.0.1");
+
+    console.log(
+      'Server running at http://127.0.0.1:1337/'
+    );
