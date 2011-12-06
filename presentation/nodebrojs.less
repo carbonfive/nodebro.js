@@ -1,97 +1,161 @@
-.nodejsorg {
-  background-image:url(images/nodeorg.png);
+.content {
+  &.screenshot {
+    &.nodejsorg {
+      background-image:url(/file/images/nodeorg.png);
+    }
+
+    &.expressjs {
+      background-image:url(/file/images/express-page.png);
+      background-position: top center;
+    }
+
+    &.npm {
+      background-image:url(/file/images/npm.png);
+      background-position: top center;
+    }
+
+    &.jade {
+      background-image:url(/file/images/jade.png);
+      background-position: top center;
+    }
+
+    &.lesscss {
+      background-image:url(/file/images/less.png);
+      background-position: top center;
+    }
+
+    h1 a {
+      color: white;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      text-shadow: 2px 2px #888;
+      text-decoration: none;
+      background-color:black;
+      line-height: 160px;
+    }
+  }
+
+  &.comparison {
+    ul {
+      padding: 0;
+      margin: 0;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      list-style: none;
+
+      li {
+        padding: 0;
+        margin: 0;
+        width: 340px;
+        position: absolute;
+        bottom: 100px;
+        text-align: center;
+
+        &:first-child {
+          left:100px;
+        }
+
+        &:last-child {
+          right:100px;
+        }
+      }
+    }
+  }
+
+  &.semantics {
+    ul {
+      display:block;
+      width: 896px;
+      height: 600px;
+      list-style:none;
+      position: relative;
+
+      li {
+        font-size: 16pt;
+        display:block;
+        padding: 0;
+        margin: 0;
+        width: 400px;
+        position: absolute;
+
+        &:first-child {
+          left: 40px;
+        }
+
+        &:last-child {
+          right: 40px;
+        }
+
+        pre {
+          padding:0;
+          margin:0;
+        }
+      }
+    }
+  }
+
+  &.jade-templating {
+    ul {
+      padding:0;
+      margin:0;
+      display:block;
+      width: 1000px;
+      height: 500px;
+      list-style:none;
+      position: relative;
+
+      li {
+        font-size: 16pt;
+        display:block;
+        padding: 0;
+        margin-left: 20px;
+        width: auto;
+        float: left;
+
+        &:last-child {
+          float:right;
+        }
+
+        pre {
+          padding:0;
+          margin:0;
+        }
+      }
+    }
+  }
+
+  img { vertical-align: middle; }
 }
 
-.screenshot {
-  width: 100%;
-  height: 100%;
+.v8 {
+  .system-logo {
+    width: 340px;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    bottom: 550px;
+
+    &.nodejs {
+      right: 20px;
+    }
+  }
+
+  .system-events {
+    width: 340px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    text-align:center;
+    top: 250px;
+    font-size: 2em;
+
+    &.server {
+      right: 20px;
+    }
+  }
 }
 
-.screenshot h1 a {
-  color: white;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  text-shadow: 2px 2px #888;
-  text-decoration: none;
-  background-color:black;
-  line-height: 160px;
-}
-
-.expressjs {
-  background-image:url(images/express-page.png);
-  background-position: top center;
-}
-
-img { vertical-align: middle; }
-
-.comparison {
-  width: 100%;
-  height: 100%;
-}
-
-.comparison ul {
-  padding: 0;
-  margin: 0;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  list-style: none;
-}
-
-.comparison ul li {
-  padding: 0;
-  margin: 0;
-  width: 340px;
-  position: absolute;
-  bottom: 100px;
-  text-align: center;
-}
-
-.comparison ul li:first-child {
-  left: 100px;
-}
-
-.comparison ul li:last-child {
-  right: 100px;
-}
-
-.chrome-logo {
-  width: 340px;
-  text-align: center;
-  padding:0;
-  margin:0;
-  position: absolute;
-  top: 160px;
-}
-
-.browser-events {
-  width: 340px;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  top: 288px;
-}
-
-.content .browser-events ul {
-  list-style: none;
-  text-align: center;
-}
-
-.nodejs-logo {
-  width: 340px;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  top: 160px;
-  right: 0;
-}
-
-.server-events {
-  width: 340px;
-  padding:0;
-  margin:0;
-  position: absolute;
-  top: 288px;
-  right: 0;

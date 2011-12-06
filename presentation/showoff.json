@@ -1,5 +1,6 @@
 { "name": "Getting Real-(time) with Node.js", 
   "sections": [ 
+    "setup.md",
     {"section":"introduction"},
     {"section":"what-is-node-js"},
     {"section":"getting-started"},

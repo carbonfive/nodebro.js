@@ -4,25 +4,21 @@
 !SLIDE
 # JavaScript on the Server
 
-!SLIDE bullets incremental center
+!SLIDE bullets incremental center v8
 ![V8](V8.png)
 
 <ul>
-<li class="chrome-logo"><img src="/image/what-is-node-js/chrome-logo.png" ></li>
-<li class="browser-events">
-<ul>
-<li>load</li>
-<li>click</li>
-<li>submit</li>
-</ul>
+<li class="system-logo chrome"><img src="/image/what-is-node-js/chrome-logo.png" ></li>
+<li class="system-events browser">
+<p>load</p>
+<p>click</p>
+<p>submit</p>
 </li>
-<li class="nodejs-logo"><img src="/image/what-is-node-js/nodejs-logo.png" ></li>
-<li class="server-events">
-<ul>
-<li>connect</li>
-<li>interrupt</li>
-<li>open</li>
-</ul>
+<li class="system-logo nodejs"><img src="/image/what-is-node-js/nodejs-logo.png" ></li>
+<li class="system-events server">
+<p>connect</p>
+<p>read</p>
+<p>open</p>
 </li>
 </ul>
 
@@ -44,10 +40,14 @@
 
 * ![Node Committers](node-commits-committers.jpg)
 
+  source: [Mashable](http://mashable.com/2011/03/10/node-js/)
+
 !SLIDE bullets incremental
 # Libraries
 
 * ![Libraries](npm-registry.png)
+
+  source: [NPM Registry](http://search.npmjs.org/)
 
 !SLIDE bullets incremental
 # #1 Watched
