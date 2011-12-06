@@ -1,12 +1,13 @@
 !SLIDE
 # Getting Real(-time) with Node.js
 
-!SLIDE comparison
+!SLIDE comparison center
 * ![alex](alex.jpg)
 
   Alex Cruikshank
 
   [@sivoh](http://twitter.com/sivoh)
+
 * ![rudy](rudy.jpg)
 
   Rudy
@@ -20,7 +21,7 @@
 !SLIDE
 ![HTML5](html5.png)
 
-!SLIDE comparison
+!SLIDE comparison center incremental
 * ![Carbon Five](c5.png)
 
   2000

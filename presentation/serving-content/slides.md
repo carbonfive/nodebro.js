@@ -1,20 +1,59 @@
 !SLIDE
 # Serving Content
 
-!SLIDE
-# Long Example: Verbose
+!SLIDE smaller
+
+    @@@ javascript
+    var http = require('http');
+    var fs = require('fs');
+    var url = require('url');
+
+    var server = http.createServer(function(req,res) {
+      var path = url.parse(req.url)['pathname'];
+
+      fs.readFile(path,function(err,data) {
+        res.writeHead(200, {
+          'Content-Type': 'text/html'
+          });
+        res.end(data);
+      });
+    });
+
+    server.listen(8500);
 
 !SLIDE center screenshot expressjs
 # [http://expressjs.com](http://expressjs.com)
 
-!SLIDE
-# configure
+!SLIDE 
+# require('express')
+
+    @@@ javascript
+    var express = require('express');
+    var app = express.createServer();
 
 !SLIDE
-# get
+# .configure()
 
-!SLIDE small
-# listen
+    @@@ javascript
+    app.configure(function() {
+      app.use(...);
+      app.set(...);
+      app.enable(...);
+      app.disable(..);
+    });
+
+    app.configure('development', function() {
+      ...
+    });
+
+!SLIDE
+# .listen()
+
+    @@@ javascript
+    app.listen(...,...);
+
+!SLIDE command small
+# server.js
 
     @@@ javascript
     var express = require('express');
@@ -25,3 +64,9 @@
     });
 
     app.listen( 8500 );
+
+!SLIDE bullets incremental
+* Express *DOESN'T* come with 
+
+  ![nodejs](/file/images/nodejs-logo.png)
+
