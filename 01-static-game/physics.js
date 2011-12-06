@@ -57,7 +57,8 @@ function Physics( g, f ) {
     for ( var id in boxes ) {
       box = boxes[id];
       out[id] = { id:box.id, x:box.x, y:box.y, height:box.h, width:box.w, vx:box.vx, vy:box.vy, 
-                  ax:xforce(box), ay:yforce(box), fixed:box.fixed, resting:box.resting };
+                  ax:xforce(box), ay:yforce(box), fixed:box.fixed, resting:box.resting,
+                  friction:box.friction };
     }
     return out;
   }
