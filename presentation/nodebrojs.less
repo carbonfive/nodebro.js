@@ -1,6 +1,44 @@
 .content {
+
+  color: #444;
+  
+  a {
+    color: #000;
+    text-decoration: none;
+
+    &:visited { color: #000; }
+  }
+
+  &.subsection {
+    background-color: #353129;
+    h1 {
+      background-color: inherit;
+    }
+  }
+  
+  &.cover {
+    background-position: top center;
+    background-image:url(/file/images/cover.png);
+
+    h1 {
+      display: none;
+    }
+  }
+
   &.screenshot {
     background-position: top center;
+
+    &.nodebrojs {
+      background-color: black;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-image:url(/file/images/nodebrojs.png);
+
+      h1 a {
+        top: 0;
+        background-color: transparent; 
+      }
+    }
 
     &.nodejsorg {
       background-image:url(/file/images/nodeorg.png);
@@ -29,6 +67,16 @@
 
     &.highscores {
       background-image:url(/file/images/highscores.png);
+    }
+
+    &.w3c {
+      background-image:url(/file/images/websocket-api.png);
+      background-position: top left;
+    }
+
+    &.socketio {
+      background-image:url(/file/images/socketio.png);
+      background-position: top left;
     }
 
     h1 a {

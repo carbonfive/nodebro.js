@@ -1,4 +1,4 @@
-!SLIDE
+!SLIDE center subsection
 # Getting Fancy
 
 !SLIDE screenshot center lobby
@@ -96,7 +96,7 @@ Update the <code>package.json</code>
           li two
           li three
 
-* #### <code>views/layout.jade</code>
+* #### +  <code>views/layout.jade</code>
 
       @@@ javascript
       !!! 5
@@ -113,7 +113,7 @@ Update the <code>package.json</code>
             block footer
               p General Footer
 
-* #### <code>views/layout.jade</code>
+* #### = generated HTML
 
       @@@ html
       <!DOCTYPE "html">
@@ -172,7 +172,7 @@ Update the <code>package.json</code>
         }
       }
 
-* #### <code>public/styles.css</code>
+* #### generates <code>public/styles.css</code>
       @@@ css
       #header {
         border-radius: 5px;
@@ -224,7 +224,7 @@ Update the <code>package.json</code>
 !SLIDE 
 # Express Integration
 
-Setup in <code>configure()</code> BEFORE any staic file configuration:
+Setup in <code>configure()</code> BEFORE any static file configuration:
 
     @@@ javascript
     app.use(express.compiler({ 

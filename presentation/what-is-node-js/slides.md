@@ -22,13 +22,18 @@
 </li>
 </ul>
 
-!SLIDE full-page=ryandahl.png
-# Ryan Dahl
+!SLIDE
+# Created in 2009
+## by Ryan Dahl
 ![Ryan Dahl](ryandahl.png)
 
 [@ryan](http://twitter.com/ryah)
 
 [http://github.com/ryah](http://github.com/ryah)
+
+!SLIDE 
+# They Both Found a Home
+![Joyent](Joyent-logo.png)
 
 !SLIDE bullets incremental
 # Growth
