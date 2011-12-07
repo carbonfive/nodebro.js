@@ -1,26 +1,26 @@
 !SLIDE
 # Going Modular
 
-!SLIDE
-## Highscore Module
+!SLIDE screenshot center highscores
+# [Adding Highscores](http://127.0.0.1:8500)
 
 !SLIDE
-## require()
+# require()
 
 !SLIDE
-## Writing your own
+# Writing your own
 
     @@@ javascript
     exports
 
 !SLIDE
-## .post()
+# .post()
 
 !SLIDE
-## Login
+# Login
 
 !SLIDE
-## Submitting Scores
+# Submitting Scores
 
 !SLIDE
-## Displaying Scores
+# Displaying Scores

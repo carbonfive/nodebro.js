@@ -1,8 +1,8 @@
 !SLIDE
 # Getting Fancy
 
-!SLIDE
-Lobby
+!SLIDE screenshot center lobby
+# [Lobby](http://127.0.0.1:8500/)
 
 !SLIDE screenshot center jade
 # [http://jade-lang.com](http://jade-lang.com)
