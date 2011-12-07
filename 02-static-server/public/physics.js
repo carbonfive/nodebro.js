@@ -46,7 +46,7 @@ function Physics( g, f ) {
       var state = {};
       if ( out.type == 'remove' ) state[event.cause.b1] = {id:event.cause.b1};
       if (event.cause.b1) state[event.cause.b1] = event.state[event.cause.b1];
-      if (event.cause.b2) state[event.cause.b2] = event.state[event.cause.b2];      
+      if (event.cause.b2) state[event.cause.b2] = event.state[event.cause.b2];
       out.altered = simplify_box_state( state );
     }
     return out;
@@ -56,8 +56,9 @@ function Physics( g, f ) {
     var out = {}, box;
     for ( var id in boxes ) {
       box = boxes[id];
-      out[id] = { id:box.id, x:box.x, y:box.y, height:box.h, width:box.w, vx:box.vx, vy:box.vy, 
-                  ax:xforce(box), ay:yforce(box), fixed:box.fixed, resting:box.resting };
+      out[id] = { id:box.id, x:box.x, y:box.y, height:box.h, width:box.w, vx:box.vx, vy:box.vy,
+                  ax:xforce(box), ay:yforce(box), fixed:box.fixed, resting:box.resting,
+                  friction:box.friction };
     }
     return out;
   }
