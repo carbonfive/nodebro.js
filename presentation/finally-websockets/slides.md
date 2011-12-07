@@ -146,4 +146,4 @@ Diagram showing connection
 # Multiplayer Game!
 
 !SLIDE
-# Javasript Everywhere Allows You To Moving Logic From Client to Server ... and Back!
+# Javasript Everywhere Allows You To Move Logic From Client to Server ... and Back!
