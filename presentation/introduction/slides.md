@@ -1,5 +1,9 @@
+!SLIDE cover center
+# NaN
+
 !SLIDE
 # Getting Real(-time) with Node.js
+## #nodebrojs
 
 !SLIDE comparison center
 * ![alex](alex.jpg)
@@ -30,8 +34,8 @@
 
   2010
 
-!SLIDE
-# #nodebrojs
+!SLIDE center screenshot nodebrojs
+# [nodebro.js](/file/../01-static-game/nodebro.js.html)
 
 !SLIDE bullets incremental
 # Our Goal Today
@@ -44,4 +48,5 @@
 # ![html5-websockets](html5-websockets.png) + ![nodejs-logo](nodejs-logo.png)
 
 !SLIDE
+# HTML5 Websockets
 ![html5](html5-websockets-large.png)

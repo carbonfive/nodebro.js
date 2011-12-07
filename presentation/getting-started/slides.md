@@ -1,4 +1,4 @@
-!SLIDE
+!SLIDE subsection center
 # Getting Started
 
 !SLIDE center screenshot nodejsorg

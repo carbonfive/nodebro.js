@@ -1,8 +1,8 @@
-!SLIDE
+!SLIDE center subsection
 # What's the Big Deal?
 
 !SLIDE
-# STUPIDEST REASON?
+# STUPIDEST REASON
 
 !SLIDE
 # It's HAWT, bro!
@@ -11,6 +11,9 @@
 
 !SLIDE
 ![brogrammer](brogrammer.jpg)
+
+!SLIDE
+# Somewhat Better Reason
 
 !SLIDE
 # Same Language Everywhere
@@ -23,14 +26,43 @@
     console.log("Hello!");
 
 !SLIDE
+# It's "Fast"
+
+!SLIDE incremental bullets
+# Its Highly Optimized Concurrency
+
+!SLIDE
+# Waiting for I/O is SLOW
+![Cost of I/O](io-cost.png)
+
+source: [Mixu's Blog](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
+
+!SLIDE bullets incremental
+# Processes Per Request?
+
+* Doesn't Scale
+
+!SLIDE bullets incremental
+# Thread Per Request?
+
+* Eats Memory
+* Race Conditions, Deadlocks
+* Simply Not available
+
+!SLIDE bullets incremental
+# ![node.js](/file/images/nodejs-logo.png) Uses 
+
+* One Process
+* One Thread
+
+!SLIDE
 # "Non-Blocking" I/O
 
 !SLIDE
 # Evented I/O
 
-!SLIDE smaller incremental
-
-* Ruby
+!SLIDE
+# Ruby
 
       @@@ ruby
       def index
@@ -38,7 +70,8 @@
         render :text => count
       end
 
-* Javascript
+!SLIDE
+# Javascript
 
       @@@ javascript
       app.get('/', function(req,res) {
@@ -47,7 +80,7 @@
         });
       });
 
-!SLIDE incremental small
+!SLIDE incremental smaller
 # Scenario
 
 * 1 process running our app
@@ -73,6 +106,7 @@
     @@@ javascript
     var http = require('http');
     var server = http.createServer(function (req, res) {
+      // contrived example activate!
       setTimeout(function() {
         res.writeHead(200, {
           'Content-Type': 'text/plain'
@@ -114,6 +148,7 @@
     ** SIEGE 2.70
     ** Preparing 250 concurrent users for battle.
     The server is now under siege...
+    ...
     done.
     Transactions:                    100 hits
     Availability:                 100.00 %
@@ -128,29 +163,9 @@
     Longest transaction:            2.01
     Shortest transaction:           2.00
 
-!SLIDE commandline incremental
+!SLIDE bullets incremental small
+# It's Not the Only Event(ed I/O) In Town
 
-    $ siege -b -c 250 -r 1 http://127.0.0.1:1337/
-    ** SIEGE 2.70
-    ** Preparing 250 concurrent users for battle.
-    The server is now under siege...
-    ...
-    done.
-    Transactions:                    250 hits
-    Availability:                 100.00 %
-    Elapsed time:                   4.00 secs
-    Data transferred:               0.00 MB
-    Response time:                  2.01 secs
-    Transaction rate:              62.50 trans/sec
-    Throughput:                     0.00 MB/sec
-    Concurrency:                  125.47
-    Successful transactions:         250
-    Failed transactions:               0
-    Longest transaction:            3.83
-    Shortest transaction:           1.99
-
-!SLIDE incremental
-# Not the Only Event In Town
-
-* [EventMachine]()
-* [Tornado]()
+* Ruby - [EventMachine](http://http://rubyeventmachine.com/)
+* Python - [Twisted](http://twistedmatrix.com/trac/)
+* Web Server - [ngnix](http://nginx.org/)

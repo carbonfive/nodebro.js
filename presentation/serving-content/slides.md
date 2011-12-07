@@ -1,7 +1,8 @@
-!SLIDE
+!SLIDE center subsection
 # Serving Content
 
 !SLIDE smaller
+# File Serving
 
     @@@ javascript
     var http = require('http');
@@ -36,10 +37,10 @@
 
     @@@ javascript
     app.configure(function() {
-      app.use(...);
-      app.set(...);
-      app.enable(...);
-      app.disable(..);
+      app.use( /* functionality */);
+      app.set( /* setting[, value] */ );
+      app.enable( /* setting */ );
+      app.disable( /* setting */ );
     });
 
     app.configure('development', function() {
@@ -50,7 +51,7 @@
 # .listen()
 
     @@@ javascript
-    app.listen(...,...);
+    app.listen(/* port[, callback] */);
 
 !SLIDE command small
 # server.js
