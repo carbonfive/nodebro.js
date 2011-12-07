@@ -39,19 +39,6 @@
       engine.addBox( 3, 'coin-'+(coinIndex++), { x:1, y:385, width:20, height:20, vx:400, friction:false });
 
 
-      /*
-      engine.addFixture( 0, "platform-0", {x:0, y:0, width:600, height:20 } )
-      engine.addFixture( 0, "platform-1", {x:0, y:200, width:600, height:20 } )
-      engine.addFixture( 0, "platform-2", {x:0, y:300, width:600, height:20 } )
-      engine.addBox( 0, "box1", {x:0, y:21, width:30, height:30, vx:20 } );
-      engine.alter( 1, "box1", { ay:16 } );
-      engine.alter( 6, "box1", { ay:0 } );
-      engine.addBox( 0, "box2", {x:560, y:20, width:20, height:20, vx:-20, vy:40 } );
-      engine.addFixture( 0, "platform", {x:280, y:50, width:200, height:20 } )
-      engine.addBox( 4, "box1", {x:200, y:230, width:20, height:20, vx:30, maxVy:40 } );
-//      engine.alter(8.1, 'box2', {friction:false}, 'a' );
-      engine.alter( 13.419165993007114, 'box2', {vy:30}, 'fish' );
-      */
       drawEvents(engine.update(0,5));
     }
 

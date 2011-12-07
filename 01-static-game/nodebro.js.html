@@ -47,9 +47,9 @@
       engine.addFixture( time, 'wall-left', {x:600, y:LEVEL_SPACING, width:5, height:700} );
       engine.addFixture( time, 'tunnel-left', {x:-25, y:0, width:5, height:LEVEL_SPACING} );
       engine.addFixture( time, 'tunnel-right', {x:620, y:0, width:5, height:LEVEL_SPACING} );
-          
-      engine.addBox( time, 'player-1', {x:0, y:PLATFORM_WIDTH + 5, width:30, height:30, maxVx:400, maxVy:400} );
-      engine.addBox( time, 'player-2', {x:570, y:PLATFORM_WIDTH + 5, width:30, height:30, maxVx:400, maxVy:400} );
+
+      engine.addBox( time, 'player-1', {x:0, y:PLATFORM_WIDTH + 5, width:32, height:32, maxVx:400, maxVy:400} );
+      engine.addBox( time, 'player-2', {x:568, y:PLATFORM_WIDTH + 5, width:32, height:32, maxVx:400, maxVy:400} );
 
       function dropCoin() {
         var speed = 200 + (600 * Math.random())|0;
@@ -125,15 +125,7 @@
           var coin;
           for ( var id in evt.altered )
             if ( id.match(/^coin-/) ) coin = id;
-          /*
-          ++misses;
-          if (callback) callback( [{ time:evt.time, type:'miss', misses:misses }] );
-          */
           engine.removeFeature( evt.time-.001, coin );
-          /*
-          if ( misses >= 10 )
-            return endGame();
-          */
           return update();
         }, (1000*(evt.time-time))|0 ) );
       }
@@ -150,10 +142,10 @@
       function update() {
         if ( gameOver ) return;
         state = engine.update( setTime()-.5, 2 );
-        
+
         timers.forEach(clearInterval);
         timers.length = 0;
-        
+
         for (var i=0,evt; evt = state[i]; i++ ) {
           if ( evt.type in {start:1, end:1} ) continue;
           var types = {};
@@ -287,7 +279,7 @@
           var position = sprite.position(time), img;
           if (position.vx < -0.01) facingRight = false;
           else if (position.vx > 0.01) facingRight = true;
-          
+
           if ( state == 'JUMP' )
             img = 0;
           else if ( state == 'SKID' )
@@ -321,12 +313,14 @@
     function CoinSprite() {
       var sprite = Sprite();
       return {
-        draw : function( time, ctx ) {          
+        draw : function( time, ctx ) {
           var position = sprite.position(time);
 
-          ctx.save(); ctx.fillStyle = 'rgba(255,205,0,6)'; ctx.beginPath();
-          ctx.arc(position.x + 10, position.y + 10, 10, 0, 2*Math.PI );
-          ctx.fill(); ctx.restore();
+          ctx.save();
+          ctx.translate(position.x,position.y + 20);
+          ctx.scale(1,-1);
+          ctx.drawImage(el('coin'),0,0,16,16,0,0,20,20);
+          ctx.restore();
         },
         update : sprite.update
       }
@@ -342,13 +336,13 @@
 		}
 
     function handleKey( f ) {
-      return function( event ) {     
+      return function( event ) {
         event = event || window.event;
         var code = event.keyCode || event.which;
         return f(code) !== false;
       }
     }
-     
+
     var keysDown = {};
     var handleKeyDown = handleKey( function( code ) {
       if (keysDown[code]) return false;
@@ -362,8 +356,8 @@
       }
     } );
 
-    var handleKeyUp = handleKey( function( code ) { 
-      var handler = { 
+    var handleKeyUp = handleKey( function( code ) {
+      var handler = {
         74:[game.playerKeyUp,2], 76:[game.playerKeyUp,2], 73:[game.playerJumpEnd,2],
         65:[game.playerKeyUp,1], 68:[game.playerKeyUp,1], 87:[game.playerJumpEnd,1] 
         }[code];
@@ -378,5 +372,6 @@
 	<canvas id="display" width="600" height="400"></canvas>
   <img id="foo" src="foo.png"/>
   <img id="bar" src="bar.png"/>
+  <img id="coin" src="html5coin.png"/>
 </body>
 </html>
