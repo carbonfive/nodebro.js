@@ -1,5 +1,4 @@
-var container = (typeof exports == undefined ? window : exports );
-
+(function( container ) {
 /*
 Given a list of objects, each with accelerations, velocities, and coordinates,
 solve for for all non-balistic changes in trajectory including collisions, drops, 
@@ -61,7 +60,8 @@ container.Physics = function( g, f ) {
     for ( var id in boxes ) {
       box = boxes[id];
       out[id] = { id:box.id, x:box.x, y:box.y, height:box.h, width:box.w, vx:box.vx, vy:box.vy, 
-                  ax:xforce(box), ay:yforce(box), fixed:box.fixed, resting:box.resting };
+                  ax:xforce(box), ay:yforce(box), fixed:box.fixed, resting:box.resting,
+                  friction:box.friction };
     }
     return out;
   }
@@ -283,3 +283,4 @@ container.Physics = function( g, f ) {
     update: update
   }
 }
+})(typeof exports == 'undefined' ? window : exports );

@@ -1,3 +1,4 @@
+(function( container ) {
 /*
 Given a list of objects, each with accelerations, velocities, and coordinates,
 solve for for all non-balistic changes in trajectory including collisions, drops, 
@@ -10,29 +11,31 @@ time, T. Clients may either use the data to compute the exact trajectory provide
 or discard the first position and velocity and use the existing position to calculate a new velocity
 given the next position and current acceleration.
 */
-function Physics( g, f ) {
+container.Physics = function( g, f ) {
   // TODO: Make sure concurrent events aren't skipped
   // TODO: Remove unchanged events from calculations.  
   var current_state={}, current_t=0, alterations=[];
 
   function update( start, dt ) {
-    var events = [], evt = { t:current_t, state:current_state, cause:{type:'start'}}, 
-        end = start + dt, seen = {};
+    try {
+      var events = [], evt = { t:current_t, state:current_state, cause:{type:'start'}}, 
+          end = start + dt, seen = {};
 
-    // skip ahead to state at t
-    while ( evt.t < start )
-      evt = next_event( evt.state, evt.t, start, alterations, seen );
-    current_state = evt.state;
-    current_t = start;
+      // skip ahead to state at t
+      while ( evt.t < start )
+        evt = next_event( evt.state, evt.t, start, alterations, seen );
+      current_state = evt.state;
+      current_t = start;
 
-    // add all events till end
-    evt.cause.type = 'start';
-    events.push( simplify_event( evt ) );
-    var tempAlterations = alterations.slice(0)
-    while ( evt.t < end )
-      events.push( simplify_event( evt = next_event( evt.state, evt.t, end, tempAlterations, seen ) ) );
+      // add all events till end
+      evt.cause.type = 'start';
+      events.push( simplify_event( evt ) );
+      var tempAlterations = alterations.slice(0)
+      while ( evt.t < end )
+        events.push( simplify_event( evt = next_event( evt.state, evt.t, end, tempAlterations, seen ) ) );
 
-    return events;
+      return events;
+    } catch ( error ) { console.log( error ); }
   }
 
   function simplify_event( event ) {
@@ -46,7 +49,7 @@ function Physics( g, f ) {
       var state = {};
       if ( out.type == 'remove' ) state[event.cause.b1] = {id:event.cause.b1};
       if (event.cause.b1) state[event.cause.b1] = event.state[event.cause.b1];
-      if (event.cause.b2) state[event.cause.b2] = event.state[event.cause.b2];
+      if (event.cause.b2) state[event.cause.b2] = event.state[event.cause.b2];      
       out.altered = simplify_box_state( state );
     }
     return out;
@@ -56,7 +59,7 @@ function Physics( g, f ) {
     var out = {}, box;
     for ( var id in boxes ) {
       box = boxes[id];
-      out[id] = { id:box.id, x:box.x, y:box.y, height:box.h, width:box.w, vx:box.vx, vy:box.vy,
+      out[id] = { id:box.id, x:box.x, y:box.y, height:box.h, width:box.w, vx:box.vx, vy:box.vy, 
                   ax:xforce(box), ay:yforce(box), fixed:box.fixed, resting:box.resting,
                   friction:box.friction };
     }
@@ -280,3 +283,4 @@ function Physics( g, f ) {
     update: update
   }
 }
+})(typeof exports == 'undefined' ? window : exports );

@@ -52,7 +52,7 @@
       engine.addBox( time, 'player-2', {x:570, y:PLATFORM_WIDTH + 5, width:30, height:30, maxVx:400, maxVy:400} );
 
       function dropCoin() {
-        var speed = 200 + (600 * Math.random())|0;
+        var speed = 100 + (300 * Math.random())|0;
         if ( Math.random() >= .5 )
           engine.addBox( setTime(), 'coin-'+(coinIndex++), { x:0, y:385, width:20, height:20, vx:speed, friction:false });
         else

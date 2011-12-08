@@ -5,13 +5,13 @@ exports.init = function(io) {
   var games = {};
 
   var gameSockets = io.of('/game').on('connection', function(socket) {
+    socket.on('tick', function() { socket.emit('tock',new Date().getTime()) });
     socket.on('join', function(data) {
       var room = socket.join( data.gameId );
 
       var game = games[data.gameId] = (games[data.gameId] || GameControl(data.gameId, gameSockets));
       game.join( data.nickname, data.isHost );
 
-      socket.on('tick', function() { socket.emit('tock',new Date().getTime()) });
 
       function keyEvent(f) { return function() { f( data.isHost ? 'player-1' : 'player-2' ); } };
       socket.on('playerLeftDown', keyEvent(game.playerLeftDown) );
@@ -64,7 +64,7 @@ function GameControl( gameId, sockets ) {
   }
 
   function dropCoin() {
-    var speed = 200 + (600 * Math.random())|0;
+    var speed = 100 + (300 * Math.random())|0;
     if ( Math.random() >= .5 )
       engine.addBox( setTime(), 'coin-'+(coinIndex++), { x:0, y:385, width:20, height:20, vx:speed, friction:false });
     else

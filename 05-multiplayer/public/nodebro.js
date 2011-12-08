@@ -1,4 +1,6 @@
 var game;  // socket connecting to game controller
+var timeOffset; // system time minus server time
+
 
 function el(id) { return document.getElementById(id); }
 function range(n,f) { var a=[]; for (var i=0; i<n; i++) a.push(f(i)); return a; }
@@ -20,7 +22,7 @@ function ViewControl() {
   }
 
   function draw() {
-    var time = new Date().getTime() / 1000, altered, type;
+    var time = new Date().getTime() / 1000 + timeOffset, altered, type;
     while (events[0] && time > events[0].time) {
       for (var id in events[0].altered) {
         altered = events[0].altered[id];
@@ -111,7 +113,7 @@ function Sprite() {
   return {
     position : function( time ) {
       var t = time - t0;
-      return { x : ax*t*t/2 + vx*t + x0, y : ay*t*t/2 + vy*t + y0 };
+      return { x : ax*t*t/2 + vx*t + x0, y : ay*t*t/2 + vy*t + y0, vx:ax*t+vx, vy:ay*t+vy };
     },
     update : function( time, o ) { 
       t0=time; x0=o.x; y0=o.y; vx=o.vx; vy=o.vy; ax=o.ax; ay=o.ay; 
@@ -120,17 +122,40 @@ function Sprite() {
 }
 
 function PlayerSprite(id) {
-  var sprite = Sprite();
+  var sprite = Sprite(), facingRight = id=='player-1', runStart, state;
   return {
     draw : function( time, ctx ) {
-      var position = sprite.position(time);
+      var position = sprite.position(time), img;
+      if (position.vx < -0.01) facingRight = false;
+      else if (position.vx > 0.01) facingRight = true;
 
-      ctx.save(); ctx.fillStyle = {'player-1':'#f00', 'player-2':'#00f'}[id]; 
-      ctx.beginPath();
-      ctx.rect(position.x, position.y, 30, 30);
-      ctx.fill(); ctx.restore();
+      if ( state == 'JUMP' )
+        img = 0;
+      else if ( state == 'SKID' )
+        img = (Math.abs(position.vx) > 0.01) ? 1 : 5;
+      else
+        img = 2 + ((( time - runStart ) * 4)|0) % 3;
+
+      ctx.save(); 
+      ctx.translate(position.x + (facingRight?32:0),position.y + 32);
+      ctx.scale(facingRight?-1:1,-1);
+      var sheet = {'player-1':'foo', 'player-2':'bar'}[id]; 
+      ctx.drawImage(el(sheet),img*30,0,16,16,0,0,32,32);
+      ctx.restore();
     },
-    update : sprite.update
+    update : function( time, o ) {
+      sprite.update( time, o );
+
+      if ( ! o.resting ) {
+        state = 'JUMP';
+      } else if ( o.friction ) {
+        state = 'SKID';
+      } else {
+        if ( state != 'RUN' )
+        runStart = time;
+        state = 'RUN';
+      }
+    }
   }
 }
 
@@ -140,9 +165,11 @@ function CoinSprite() {
     draw : function( time, ctx ) {
       var position = sprite.position(time);
 
-      ctx.save(); ctx.fillStyle = 'rgba(255,205,0,6)'; ctx.beginPath();
-      ctx.arc(position.x + 10, position.y + 10, 10, 0, 2*Math.PI );
-      ctx.fill(); ctx.restore();
+      ctx.save();
+      ctx.translate(position.x,position.y + 20);
+      ctx.scale(1,-1);
+      ctx.drawImage(el('coin'),0,0,16,16,0,0,20,20);
+      ctx.restore();
     },
     update : sprite.update
   }
@@ -153,6 +180,8 @@ function init() {
   game = io.connect('/game');
 
   game.on('connect', function () {
+    var tickTime = new Date().getTime();
+    game.emit('tick');
     game.emit('join', {nickname:nickname, gameId:gameId, isHost:isHost});
 
     function handle(type,f) {
@@ -164,6 +193,10 @@ function init() {
     handle('score', view.score);
     handle('gameover', view.gameover);
     handle('startGame', view.startGame);
+    handle('tock', function(serverTime) {
+      var tockTime = new Date().getTime();
+      timeOffset = (tickTime + (tockTime - tickTime)/2 - serverTime)/1000;
+    });
   });
 
   var keysDown = {};

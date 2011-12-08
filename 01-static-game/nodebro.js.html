@@ -52,7 +52,7 @@
       engine.addBox( time, 'player-2', {x:568, y:PLATFORM_WIDTH + 5, width:32, height:32, maxVx:400, maxVy:400} );
 
       function dropCoin() {
-        var speed = 200 + (600 * Math.random())|0;
+        var speed = 100 + (300 * Math.random())|0;
         if ( Math.random() >= .5 )
           engine.addBox( setTime(), 'coin-'+(coinIndex++), { x:0, y:385, width:20, height:20, vx:speed, friction:false });
         else
@@ -275,7 +275,7 @@
     function PlayerSprite(id) {
       var sprite = Sprite(), facingRight = id=='player-1', runStart, state;
       return {
-        draw : function( time, ctx ) {          
+        draw : function( time, ctx ) {
           var position = sprite.position(time), img;
           if (position.vx < -0.01) facingRight = false;
           else if (position.vx > 0.01) facingRight = true;
