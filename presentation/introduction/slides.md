@@ -1,7 +1,7 @@
 !SLIDE cover center
 # NaN
 
-!SLIDE
+!SLIDE subsection center
 # Getting Real(-time) with Node.js
 ## #nodebrojs
 
@@ -39,13 +39,13 @@
 
   2010
 
-!SLIDE center screenshot nodebrojs
-# [nodebro.js](/file/../01-static-game/nodebro.js.html)
-
 !SLIDE bullets incremental
 # Our Goal Today
 
-* ONLINE MULTIPLAYER NODEBRO.JS
+* Take a rich HTML5 page and bring it online.
+
+!SLIDE center screenshot nodebrojs
+# [nodebro.js](/file/../01-static-game/nodebro.js.html)
 
 !SLIDE
 # HOW?
