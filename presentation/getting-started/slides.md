@@ -4,15 +4,11 @@
 !SLIDE center screenshot nodejsorg
 # [http://nodejs.org](http://nodej.org)
 
-!SLIDE
-# Compiling
-
 !SLIDE commandline incremental
 # Mac OSX : Homebrew
 
     $ /usr/bin/ruby -e \
       "$(curl -fsSL https://raw.github.com/gist/323731)"
-
     $ brew install node
 
 !SLIDE commandline incremental

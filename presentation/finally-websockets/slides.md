@@ -4,8 +4,17 @@
 !SLIDE
 ![html5-websockets](html5-websockets-large.png)
 
-!SLIDE
-Diagram showing connection
+!SLIDE center 
+# Pull
+![Pull](pull.png)
+
+!SLIDE center
+# Poll
+![Poll](poll.png)
+
+!SLIDE center
+# Websockets
+![Websockets](Bi-Directional.png)
 
 !SLIDE screenshot center w3c
 # [W3C Draft](http://dev.w3.org/html5/websockets/)
@@ -114,8 +123,8 @@ Diagram showing connection
                       { my: 'data' });
       });
  
-!SLIDE
-# Who's Online
+!SLIDE center screenshot online
+# [Who's Online](http://localhost:8500)
 
 !SLIDE semantics smaller incremental
 # Use Namespace to Handle Just Lobby Connections
@@ -146,4 +155,4 @@ Diagram showing connection
 # Multiplayer Game!
 
 !SLIDE
-# Javasript Everywhere Allows You To Move Logic From Client to Server ... and Back!
+# Javascript Everywhere Allows You To Move Logic From Client to Server ... and Back!
