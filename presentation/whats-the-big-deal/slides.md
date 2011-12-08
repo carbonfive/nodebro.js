@@ -47,14 +47,18 @@
 # It's "Fast"
 
 !SLIDE incremental bullets
-# Its Highly Optimized Concurrency
+# It's Concurrency
 
 !SLIDE center
+# Concurrency
+
 ![Concurrency](concurrency.png)
 
 !SLIDE
 # Waiting for I/O is SLOW
 ![Cost of I/O](io-cost.png)
+
+source: [Mixu's Blog](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
 
 !SLIDE incremental smaller
 # Scenario
@@ -67,7 +71,6 @@
   * 50ms to generate a response
 * How long will it take?
 
-source: [Mixu's Blog](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
 
 !SLIDE center
 # Blocking
