@@ -49,17 +49,12 @@
 !SLIDE incremental bullets
 # Its Highly Optimized Concurrency
 
+!SLIDE center
+![Concurrency](concurrency.png)
+
 !SLIDE
 # Waiting for I/O is SLOW
 ![Cost of I/O](io-cost.png)
-
-source: [Mixu's Blog](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
-
-!SLIDE
-# "Non-Blocking" I/O
-
-!SLIDE
-# Evented I/O
 
 !SLIDE incremental smaller
 # Scenario
@@ -72,15 +67,23 @@ source: [Mixu's Blog](http://blog.mixu.net/2011/02/01/understanding-the-node-js-
   * 50ms to generate a response
 * How long will it take?
 
+source: [Mixu's Blog](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
+
 !SLIDE center
 # Blocking
 
 ![blocking-timeline](blocking-timeline.png)
 
+!SLIDE
+# ![Node.js](/file/images/nodejs-logo.png) has <br />"Non-Blocking" I/O
+
 !SLIDE center
-# Non-Blocking
+# "Non-Blocking"
 
 ![nonblocking-timeline](nonblocking-timeline.png)
+
+!SLIDE
+# Evented I/O
 
 !SLIDE
 # Ruby

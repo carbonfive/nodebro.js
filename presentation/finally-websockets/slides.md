@@ -33,18 +33,19 @@
 
     connection.onclose = /* function */;
 
-!SLIDE bullets incremental
-# BUT ...
-
-* What's the format of the data?
-* How do we handle the server-side?
-
-!SLIDE
-# Libraries
-
 !SLIDE screenshot center socketio
 # [socket.io](http://socket.io)
 
+!SLIDE center bullets incremental
+# Features Great Compatibility
+
+Has fallback depending on your browser
+
+* Websockets
+* Flash sockets
+* Long Polling
+* Short Polling
+* ... It usually just works!
 !SLIDE smaller
 # Again, Great in Browser ...
 

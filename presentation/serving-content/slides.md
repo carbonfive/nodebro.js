@@ -67,7 +67,6 @@
     app.listen( 8500 );
 
 !SLIDE bullets incremental
-* Express *DOESN'T* come with 
+* ![nodejs](/file/images/nodejs-logo.png)
 
-  ![nodejs](/file/images/nodejs-logo.png)
-
+  *DOESN'T* come with Express

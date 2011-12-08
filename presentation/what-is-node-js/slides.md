@@ -7,6 +7,10 @@
 !SLIDE bullets incremental center v8
 ![V8](V8.png)
 
+Highly Perfomant JS Engine
+
+Compiles JS to Native
+
 <ul>
 <li class="system-logo chrome"><img src="/image/what-is-node-js/chrome-logo.png" ></li>
 <li class="system-events browser">
