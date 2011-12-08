@@ -8,4 +8,7 @@
 # Dependency Instability
 
 !SLIDE
-# Getting to Nested
+# Getting Lost in the Stack
+
+!SLIDE
+# Deep Nesting

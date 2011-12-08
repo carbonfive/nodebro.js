@@ -12,6 +12,7 @@
     {"section":"finally-websockets"},
     {"section":"testing"},
     {"section":"deploying-your-app"},
+    "gotchas.md",
     {"section":"resources"}
   ]
 }

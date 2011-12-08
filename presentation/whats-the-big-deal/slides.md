@@ -2,18 +2,37 @@
 # What's the Big Deal?
 
 !SLIDE
-# STUPIDEST REASON
-
-!SLIDE
 # It's HAWT, bro!
 
-![jobgraph.png](jobgraph.png)
+!SLIDE bullets incremental
+# Growth
+
+* ![Jobs Growth](jobgraph.png)
+
+!SLIDE bullets incremental
+# Growth
+
+* ![Node Committers](node-commits-committers.jpg)
+
+  source: [Mashable](http://mashable.com/2011/03/10/node-js/)
+
+!SLIDE bullets incremental
+# Libraries
+
+* ![Libraries](npm-registry.png)
+
+  source: [NPM Registry](http://search.npmjs.org/)
+
+!SLIDE bullets incremental
+# #1 Watched
+
+* ![!Most Watched](most-watched.png)
 
 !SLIDE
 ![brogrammer](brogrammer.jpg)
 
 !SLIDE
-# Somewhat Better Reason
+# Somewhat Better Reason ...
 
 !SLIDE
 # Same Language Everywhere
@@ -37,48 +56,11 @@
 
 source: [Mixu's Blog](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
 
-!SLIDE bullets incremental
-# Processes Per Request?
-
-* Doesn't Scale
-
-!SLIDE bullets incremental
-# Thread Per Request?
-
-* Eats Memory
-* Race Conditions, Deadlocks
-* Simply Not available
-
-!SLIDE bullets incremental
-# ![node.js](/file/images/nodejs-logo.png) Uses 
-
-* One Process
-* One Thread
-
 !SLIDE
 # "Non-Blocking" I/O
 
 !SLIDE
 # Evented I/O
-
-!SLIDE
-# Ruby
-
-      @@@ ruby
-      def index
-        count = Users.count
-        render :text => count
-      end
-
-!SLIDE
-# Javascript
-
-      @@@ javascript
-      app.get('/', function(req,res) {
-        users.count(function(err,count) {
-          res.send(count);
-        });
-      });
 
 !SLIDE incremental smaller
 # Scenario
@@ -98,7 +80,27 @@ source: [Mixu's Blog](http://blog.mixu.net/2011/02/01/understanding-the-node-js-
 
 !SLIDE center
 # Non-Blocking
+
 ![nonblocking-timeline](nonblocking-timeline.png)
+
+!SLIDE
+# Ruby
+
+      @@@ ruby
+      def index
+        count = Users.count
+        render :text => count
+      end
+
+!SLIDE
+# Javascript
+
+      @@@ javascript
+      app.get('/', function(req,res) {
+        users.count(function(err,count) {
+          res.send(count);
+        });
+      });
 
 !SLIDE command smaller
 # helloWorldServerTimeout.js
@@ -164,7 +166,7 @@ source: [Mixu's Blog](http://blog.mixu.net/2011/02/01/understanding-the-node-js-
     Shortest transaction:           2.00
 
 !SLIDE bullets incremental small
-# It's Not the Only Event(ed I/O) In Town
+# It's Not the Only <br />Event(ed I/O) In Town
 
 * Ruby - [EventMachine](http://http://rubyeventmachine.com/)
 * Python - [Twisted](http://twistedmatrix.com/trac/)

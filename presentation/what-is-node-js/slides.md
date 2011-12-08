@@ -35,26 +35,3 @@
 # They Both Found a Home
 ![Joyent](Joyent-logo.png)
 
-!SLIDE bullets incremental
-# Growth
-
-* ![Jobs Growth](jobgraph.png)
-
-!SLIDE bullets incremental
-# Growth
-
-* ![Node Committers](node-commits-committers.jpg)
-
-  source: [Mashable](http://mashable.com/2011/03/10/node-js/)
-
-!SLIDE bullets incremental
-# Libraries
-
-* ![Libraries](npm-registry.png)
-
-  source: [NPM Registry](http://search.npmjs.org/)
-
-!SLIDE bullets incremental
-# #1 Watched
-
-* ![!Most Watched](most-watched.png)

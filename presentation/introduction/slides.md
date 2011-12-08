@@ -8,19 +8,24 @@
 !SLIDE comparison center
 * ![alex](alex.jpg)
 
-  Alex Cruikshank
+  Alex<br />Cruikshank
 
   [@sivoh](http://twitter.com/sivoh)
 
 * ![rudy](rudy.jpg)
 
-  Rudy
+  Rudy<br />Jahchan
 
   [@rudy](http://twitter.com/rudy)
 
 !SLIDE
 # Carbon Five
+
 ![Carbon Five](c5.png)
+
+[http://carbonfive.com](http://carbonfive.com)
+
+[@carbonfive](http://twitter.com/carbonfive)
 
 !SLIDE
 ![HTML5](html5.png)

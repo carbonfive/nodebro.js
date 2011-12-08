@@ -39,5 +39,5 @@
     ├── mime@1.2.4
     └── connect@1.8.2
 
-!SLIDE
-# Packages
+!SLIDE center screenshot npmregistry
+# [NPM Registry](http://search.npmjs.org)
