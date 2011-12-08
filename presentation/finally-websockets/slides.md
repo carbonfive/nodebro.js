@@ -126,28 +126,26 @@
 !SLIDE center screenshot online
 # [Who's Online](http://localhost:8500)
 
-!SLIDE semantics smaller incremental
+!SLIDE smaller incremental
 # Use Namespace to Handle Just Lobby Connections
 
-* ### Client
+* Client
 
       @@@ javascript
       io.connect('/lobby');
 
-* ### Server
+* Server
 
       @@@ javascript
       var lobby =
-        io.of('/lobby')
-          .on('connection',
-              function(socket) {
-                ...
+        io.of('/lobby').on('connection',
+          function(socket) {
+            ...
+            // send a message to all
+            lobby.emit('message', data);
+            ...
+        });
 
-                // send a message to all
-                lobby.emit('message', data);
-
-                ...
-              });
 !SLIDE
 # Build Each Page Like It's Own Little App
 
@@ -156,3 +154,61 @@
 
 !SLIDE
 # Javascript Everywhere Allows You To Move Logic From Client to Server ... and Back!
+
+!SLIDE smaller
+# Express: <code>get()</code>-ing Parameters
+
+Parameters can be pulled from the path:
+
+    @@@ javascript
+    app.get('/path/:foo/:bar', function(req, res) {
+      // var fooValue = req.params.foo;
+      // var barValue = req.params.bar;
+    });
+
+!SLIDE smaller
+# Connecting to a Game
+
+    @@@ javascript
+    app.get('/game/:player/:id', 
+      authenticate, 
+      function( req, res ) {
+        res.render('nodebro.js.jade', {
+          nickname:req.session.nickname,
+          isHost : req.params.player == '1' ? true : false,
+          gameId:req.params.id
+      });
+    });
+    
+!SLIDE smaller
+# Client Sends Game Id
+
+    @@@ javascript
+    game = io.connect('/game');
+
+    game.on('connect', function () {
+      game.emit('join', 
+                { nickname:nickname, 
+                  gameId:gameId, 
+                  isHost:isHost});
+        ..
+
+!SLIDE smaller
+# Server <code>join()</code>s them to a Room
+
+    @@@ javascript
+    var gameSockets = 
+      io.of('/game')
+        .on('connection', function(socket) {
+          socket.on('join', function(data) {
+            var room = socket.join( data.gameId );
+            ...
+
+!SLIDE smaller
+# Game Events sent <code>to(room)</code>
+
+    @@@ javascript
+    function gameEvent( type, data ) {
+      sockets.to(gameId).emit( type, data );
+    }
+    
