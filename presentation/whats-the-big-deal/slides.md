@@ -2,12 +2,14 @@
 # What's the Big Deal?
 
 !SLIDE
-# It's HAWT, bro!
+# It's HAWT
 
 !SLIDE bullets incremental
 # Growth
 
 * ![Jobs Growth](jobgraph.png)
+
+  source: [Indeed](http://indeed.com)
 
 !SLIDE bullets incremental
 # Growth
@@ -30,9 +32,6 @@
 
 !SLIDE
 ![brogrammer](brogrammer.jpg)
-
-!SLIDE
-# Somewhat Better Reason ...
 
 !SLIDE
 # Same Language Everywhere
