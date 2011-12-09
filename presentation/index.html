@@ -1,0 +1,1189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Getting Real-(time) with Node.js</title>
+
+  <meta name="viewport" content="width=device-width"/>
+
+  <link rel="stylesheet" href="./css/reset.css" type="text/css"/>
+  <link rel="stylesheet" href="./css/showoff.css" type="text/css"/>
+
+  <script type="text/javascript" src="./js/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="./js/jquery.cycle.all.js"></script>
+	<script type="text/javascript" src="./js/jquery-print.js"></script>
+  <script type="text/javascript" src="./js/jquery.batchImageLoad.js"></script>
+
+  <script type="text/javascript" src="./js/jquery.doubletap-0.1.js"></script>
+
+  <script type="text/javascript" src="./js/fg.menu.js"></script>
+  <script type="text/javascript" src="./js/showoff.js"></script>
+  <script type="text/javascript" src="./js/jTypeWriter.js"> </script>
+  <script type="text/javascript" src="./js/sh_main.min.js"></script>
+  <script type="text/javascript" src="./js/core.js"></script>
+  <script type="text/javascript" src="./js/showoffcore.js"></script>
+  <script type="text/javascript" src="./js/coffee-script.js"></script>
+
+  <link type="text/css" href="./css/fg.menu.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/theme/ui.all.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/sh_style.css" rel="stylesheet" >
+
+  
+
+  
+
+  <script type="text/javascript">
+  $(function(){
+      setupPreso(false, './');
+  });
+  </script>
+
+</head>
+
+<body>
+
+<a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="navmenu"><span class="ui-icon ui-icon-triangle-1-s"></span>slides</a>
+<div id="navigation" class="hidden"></div>
+
+<div id="help">
+  <table>
+    <tr><td class="key">z, ?</td><td>toggle help (this)</td></tr>
+    <tr><td class="key">space, &rarr;</td><td>next slide</td></tr>
+    <tr><td class="key">shift-space, &larr;</td><td>previous slide</td></tr>
+    <tr><td class="key">d</td><td>toggle debug mode</td></tr>
+    <tr><td class="key">## &lt;ret&gt;</td><td>go to slide #</td></tr>
+    <tr><td class="key">c, t</td><td>table of contents (vi)</td></tr>
+    <tr><td class="key">f</td><td>toggle footer</td></tr>
+    <tr><td class="key">r</td><td>reload slides</td></tr>
+    <tr><td class="key">n</td><td>toggle notes</td></tr>
+    <tr><td class="key">p</td><td>run preshow</td></tr>
+  </table>
+</div>
+
+<div class="buttonNav">
+  <input type="submit" onClick="prevStep();" value="prev"/>
+  <input type="submit" onClick="nextStep();" value="next"/>
+</div>
+
+<div id="preso">loading presentation...</div>
+<div id="footer">
+  <span id="slideInfo"></span>
+  <span id="debugInfo"></span>
+  <span id="notesInfo"></span>
+</div>
+
+<div id="slides" class="offscreen" style="display:none;">
+<div class="slide" data-transition="none"><div class="content" ref="setup">
+<p><link rel="stylesheet/less" type="text/css" href="file/nodebrojs.less"/></p>
+
+<script src="file/js/less-1.1.5.min.js" type="text/javascript"/>
+</div>
+</div><div class="slide" data-transition="none"><div class="content cover center" ref="introduction/slides/1">
+<h1>NaN</h1></div>
+</div><div class="slide" data-transition="none"><div class="content subsection center" ref="introduction/slides/2">
+<h1>Getting Real(-time) with Node.js</h1>
+
+<h2>#nodebrojs</h2></div>
+</div><div class="slide" data-transition="none"><div class="content comparison center" ref="introduction/slides/3">
+<ul>
+<li><p><img src="./file/introduction/alex.jpg" width="340" height="340" alt="alex"/></p>
+
+<p>Alex<br/>Cruikshank</p>
+
+<p><a href="http://twitter.com/sivoh">@sivoh</a></p></li>
+<li><p><img src="./file/introduction/rudy.jpg" width="340" height="340" alt="rudy"/></p>
+
+<p>Rudy<br/>Jahchan</p>
+
+<p><a href="http://twitter.com/rudy">@rudy</a></p></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="introduction/slides/4">
+<h1>Carbon Five</h1>
+
+<p><img src="./file/introduction/c5.png" width="341" height="327" alt="Carbon Five"/></p>
+
+<p><a href="http://carbonfive.com">http://carbonfive.com</a></p>
+
+<p><a href="http://twitter.com/carbonfive">@carbonfive</a></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="introduction/slides/5">
+<p><img src="./file/introduction/html5.png" width="341" height="481" alt="HTML5"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content comparison center incremental" ref="introduction/slides/6">
+<ul>
+<li><p><img src="./file/introduction/c5.png" width="341" height="327" alt="Carbon Five"/></p>
+
+<p>2000</p></li>
+<li><p><img src="./file/introduction/html5.png" width="341" height="481" alt="HTML5"/></p>
+
+<p>2010</p></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="introduction/slides/7">
+<h1>Our Goal Today</h1>
+
+<ul>
+<li>Take a rich HTML5 page and bring it online.</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center screenshot nodebrojs" ref="introduction/slides/8">
+<h1><a href="/file/../01-static-game/nodebro.js.html">nodebro.js</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="introduction/slides/9">
+<h1>HOW?</h1>
+
+<h1><img src="./file/introduction/html5-websockets.png" width="340" height="234" alt="html5-websockets"/> + <img src="./file/introduction/nodejs-logo.png" width="341" height="93" alt="nodejs-logo"/></h1></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="introduction/slides/10">
+<h1><a href="http://github.com/carbonfive/nodebro.js">github.com/carbonfive/nodebro.js</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="introduction/slides/11">
+<h1>HTML5 Websockets</h1>
+
+<p><img src="./file/introduction/html5-websockets-large.png" width="680" height="466" alt="html5"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="what-is-node-js/slides/1">
+<h1>What is <img src="./file/what-is-node-js/nodejs-logo.png" width="341" height="93" alt="node.js"/>?</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="what-is-node-js/slides/2">
+<h1>JavaScript on the Server</h1></div>
+</div><div class="slide" data-transition="none">
+  <div class="content bullets incremental center v8" ref="what-is-node-js/slides/3">
+<p><img src="./file/what-is-node-js/V8.png" width="338" height="345" alt="V8"/></p>
+
+<p>Highly Perfomant JS Engine</p>
+
+<p>Compiles JS to Native</p>
+
+<ul>
+<li class="system-logo chrome"><img src="/image/what-is-node-js/chrome-logo.png"/>
+<li class="system-events browser">
+<p>load</p>
+<p>click</p>
+<p>submit</p>
+</li>
+<li class="system-logo nodejs"><img src="/image/what-is-node-js/nodejs-logo.png"/>
+<li class="system-events server">
+<p>connect</p>
+<p>read</p>
+<p>open</p>
+</li>
+</li>
+
+
+</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="what-is-node-js/slides/4">
+<h1>Created in 2009</h1>
+
+<h2>by Ryan Dahl</h2>
+
+<p><img src="./file/what-is-node-js/ryandahl.png" width="140" height="140" alt="Ryan Dahl"/></p>
+
+<p><a href="http://twitter.com/ryah">@ryan</a></p>
+
+<p><a href="http://github.com/ryah">http://github.com/ryah</a></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="what-is-node-js/slides/5">
+<h1>They Both Found a Home</h1>
+
+<p><img src="./file/what-is-node-js/Joyent-logo.png" width="540" height="146" alt="Joyent"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content subsection center" ref="getting-started/slides/1">
+<h1>Getting Started</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center screenshot nodejsorg" ref="getting-started/slides/2">
+<h1><a href="http://nodej.org">http://nodejs.org</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="getting-started/slides/3">
+<h1>Mac OSX : Homebrew</h1>
+
+<pre><code><code class="command">$ /usr/bin/ruby -e \
+  "$(curl -fsSL https://raw.github.com/gist/323731)"</code>
+<code class="command">$ brew install node</code>
+</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="getting-started/slides/4">
+<h1>Running</h1>
+
+<pre><code><code class="command">$ node</code>
+<code class="result">&gt; console.log('Hello, World!')
+Hello, World!
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="getting-started/slides/5">
+<h1>Or ...</h1>
+
+<pre><code><code class="command">$ node helloWorld.js</code>
+<code class="result">Hello, World!
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller command" ref="getting-started/slides/6">
+<h1>helloWorldServer.js</h1>
+
+<pre class="sh_javascript"><code>var http = require('http');
+
+var server = http.createServer(function (req, res) {
+  res.writeHead(200, {
+    'Content-Type': 'text/plain'
+  });
+  res.end('Hello World\n');
+});
+
+server.listen(1337, "127.0.0.1");
+
+console.log(
+  'Server running at http://127.0.0.1:1337/'
+);</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content center subsection" ref="whats-the-big-deal/slides/1">
+<h1>What's the Big Deal?</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="whats-the-big-deal/slides/2">
+<h1>It's HAWT</h1></div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="whats-the-big-deal/slides/3">
+<h1>Growth</h1>
+
+<ul>
+<li><p><img src="./file/whats-the-big-deal/jobgraph.png" width="540" height="300" alt="Jobs Growth"/></p>
+
+<p>source: <a href="http://indeed.com">Indeed</a></p></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="whats-the-big-deal/slides/4">
+<h1>Growth</h1>
+
+<ul>
+<li><p><img src="./file/whats-the-big-deal/node-commits-committers.jpg" width="640" height="311" alt="Node Committers"/></p>
+
+<p>source: <a href="http://mashable.com/2011/03/10/node-js/">Mashable</a></p></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="whats-the-big-deal/slides/5">
+<h1>Libraries</h1>
+
+<ul>
+<li><p><img src="./file/whats-the-big-deal/npm-registry.png" width="807" height="413" alt="Libraries"/></p>
+
+<p>source: <a href="http://search.npmjs.org/">NPM Registry</a></p></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="whats-the-big-deal/slides/6">
+<h1>#1 Watched</h1>
+
+<ul>
+<li><img src="./file/whats-the-big-deal/most-watched.png" width="896" height="545" alt="!Most Watched"/></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="whats-the-big-deal/slides/7">
+<p><img src="./file/whats-the-big-deal/brogrammer.jpg" width="640" height="478" alt="brogrammer"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="whats-the-big-deal/slides/8">
+<h1>Same Language Everywhere</h1>
+
+<pre class="sh_javascript"><code>setTimeout(function() {
+  console.log('World!');
+}, 2000);
+
+console.log("Hello!");</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="whats-the-big-deal/slides/9">
+<h1>It's "Fast"</h1></div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="whats-the-big-deal/slides/10">
+<h1>It's Concurrency</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="whats-the-big-deal/slides/11">
+<h1>Concurrency</h1>
+
+<p><img src="./file/whats-the-big-deal/concurrency.png" width="618" height="355" alt="Concurrency"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="whats-the-big-deal/slides/12">
+<h1>Waiting for I/O is SLOW</h1>
+
+<p><img src="./file/whats-the-big-deal/io-cost.png" width="509" height="362" alt="Cost of I/O"/></p>
+
+<p>source: <a href="http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/">Mixu's Blog</a></p></div>
+</div><div class="slide" data-transition="none"><div class="content incremental smaller" ref="whats-the-big-deal/slides/13">
+<h1>Scenario</h1>
+
+<ul>
+<li>1 process running our app</li>
+<li>2 requests come in concurrently</li>
+<li>For each request:
+
+<ul>
+<li>50ms of processing</li>
+<li>200ms to run a database query</li>
+<li>50ms to generate a response</li>
+</ul>
+</li>
+<li>How long will it take?</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="whats-the-big-deal/slides/14">
+<h1>Blocking</h1>
+
+<p><img src="./file/whats-the-big-deal/blocking-timeline.png" width="644" height="413" alt="blocking-timeline"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="whats-the-big-deal/slides/15">
+<h1><img src="/file/images/nodejs-logo.png" alt="Node.js"/> has <br/>"Non-Blocking" I/O</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="whats-the-big-deal/slides/16">
+<h1>"Non-Blocking"</h1>
+
+<p><img src="./file/whats-the-big-deal/nonblocking-timeline.png" width="644" height="413" alt="nonblocking-timeline"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="whats-the-big-deal/slides/17">
+<h1>Evented I/O</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="whats-the-big-deal/slides/18">
+<h1>Ruby</h1>
+
+<pre class="sh_ruby"><code>  def index
+    count = Users.count
+    render :text =&gt; count
+  end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="whats-the-big-deal/slides/19">
+<h1>Javascript</h1>
+
+<pre class="sh_javascript"><code>  app.get('/', function(req,res) {
+    users.count(function(err,count) {
+      res.send(count);
+    });
+  });</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content command smaller" ref="whats-the-big-deal/slides/20">
+<h1>helloWorldServerTimeout.js</h1>
+
+<pre class="sh_javascript"><code>var http = require('http');
+var server = http.createServer(function (req, res) {
+  // contrived example activate!
+  setTimeout(function() {
+    res.writeHead(200, {
+      'Content-Type': 'text/plain'
+    });
+    res.end('Hello World\n');
+  },2000);
+});
+
+server.listen(1337, "127.0.0.1");
+
+console.log(
+  'Server running at http://127.0.0.1:1337/'
+);</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="whats-the-big-deal/slides/21">
+<pre><code><code class="command">$ siege -b -c 10 -r 1 http://127.0.0.1:1337/</code>
+<code class="result">** SIEGE 2.70
+** Preparing 10 concurrent users for battle.
+The server is now under siege...
+...
+done.
+Transactions:                     10 hits
+Availability:                 100.00 %
+Elapsed time:                   2.01 secs
+Data transferred:               0.00 MB
+Response time:                  2.01 secs
+Transaction rate:               4.98 trans/sec
+Throughput:                     0.00 MB/sec
+Concurrency:                   10.00
+Successful transactions:          10
+Failed transactions:               0
+Longest transaction:            2.01
+Shortest transaction:           2.01
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="whats-the-big-deal/slides/22">
+<pre><code><code class="command">$ siege -b -c 100 -r 1 http://127.0.0.1:1337/</code>
+<code class="result">** SIEGE 2.70
+** Preparing 250 concurrent users for battle.
+The server is now under siege...
+...
+done.
+Transactions:                    100 hits
+Availability:                 100.00 %
+Elapsed time:                   2.03 secs
+Data transferred:               0.00 MB
+Response time:                  2.00 secs
+Transaction rate:              49.26 trans/sec
+Throughput:                     0.00 MB/sec
+Concurrency:                   98.60
+Successful transactions:         100
+Failed transactions:               0
+Longest transaction:            2.01
+Shortest transaction:           2.00
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental small" ref="whats-the-big-deal/slides/23">
+<h1>It's Not the Only <br/>Event(ed I/O) In Town</h1>
+
+<ul>
+<li>Ruby - <a href="http://http://rubyeventmachine.com/">EventMachine</a></li>
+<li>Python - <a href="http://twistedmatrix.com/trac/">Twisted</a></li>
+<li>Web Server - <a href="http://nginx.org/">ngnix</a></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center subsection" ref="serving-content/slides/1">
+<h1>Serving Content</h1></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="serving-content/slides/2">
+<h1>File Serving</h1>
+
+<pre class="sh_javascript"><code>var http = require('http');
+var fs = require('fs');
+var url = require('url');
+
+var server = http.createServer(function(req,res) {
+  var path = url.parse(req.url)['pathname'];
+
+  fs.readFile(path,function(err,data) {
+    res.writeHead(200, {
+      'Content-Type': 'text/html'
+      });
+    res.end(data);
+  });
+});
+
+server.listen(8500);</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content center screenshot expressjs" ref="serving-content/slides/3">
+<h1><a href="http://expressjs.com">http://expressjs.com</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="serving-content/slides/4">
+<h1>require('express')</h1>
+
+<pre class="sh_javascript"><code>var express = require('express');
+var app = express.createServer();</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="serving-content/slides/5">
+<h1>.configure()</h1>
+
+<pre class="sh_javascript"><code>app.configure(function() {
+  app.use( /* functionality */);
+  app.set( /* setting[, value] */ );
+  app.enable( /* setting */ );
+  app.disable( /* setting */ );
+});
+
+app.configure('development', function() {
+  ...
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="serving-content/slides/6">
+<h1>.listen()</h1>
+
+<pre class="sh_javascript"><code>app.listen(/* port[, callback] */);</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content command small" ref="serving-content/slides/7">
+<h1>server.js</h1>
+
+<pre class="sh_javascript"><code>var express = require('express');
+var app = express.createServer();
+
+app.configure(function(){
+  app.use(express.static(__dirname+'/public'));
+});
+
+app.listen( 8500 );</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="serving-content/slides/8">
+<ul>
+<li><p><img src="/file/images/nodejs-logo.png" alt="nodejs"/></p>
+
+<p><em>DOESN'T</em> come with Express</p></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content subsection center" ref="where-did-we-get-express/slides/1">
+<h1>Where did we get Express?</h1></div>
+</div><div class="slide" data-transition="none"><div class="content screenshot npm center" ref="where-did-we-get-express/slides/2">
+<h1><a href="http://npmjs.org">http://npmjs.org</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="where-did-we-get-express/slides/3">
+<h1>Installing a Package</h1>
+
+<pre><code><code class="command">$ npm install express </code>
+<code class="result">express@2.5.1 ./node_modules/express
+&#x251C;&#x2500;&#x2500; qs@0.4.0
+&#x251C;&#x2500;&#x2500; mkdirp@0.0.7
+&#x251C;&#x2500;&#x2500; mime@1.2.4
+&#x2514;&#x2500;&#x2500; connect@1.8.2
+</code><code class="command">$ ls node_modules</code>
+<code class="result">total 0
+drwxr-xr-x  13 rudy  staff   442B Dec  5 22:30 express/
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="where-did-we-get-express/slides/4">
+<h1>package.json</h1>
+
+<pre class="sh_javascript"><code>{
+  "name" : "nodebro.js",
+  "version" : "0.0.1",
+  "dependencies" : {
+    "express" : "2.5"
+  }
+}</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content commandline incremental" ref="where-did-we-get-express/slides/5">
+<h1>Install Packages</h1>
+
+<pre><code><code class="command">$ npm install</code>
+<code class="result">express@2.5.1 ./node_modules/express
+&#x251C;&#x2500;&#x2500; qs@0.4.0
+&#x251C;&#x2500;&#x2500; mkdirp@0.0.7
+&#x251C;&#x2500;&#x2500; mime@1.2.4
+&#x2514;&#x2500;&#x2500; connect@1.8.2
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content center screenshot npmregistry" ref="where-did-we-get-express/slides/6">
+<h1><a href="http://search.npmjs.org">NPM Registry</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content center subsection" ref="getting-fancy/slides/1">
+<h1>Getting Fancy</h1></div>
+</div><div class="slide" data-transition="none"><div class="content screenshot center lobby" ref="getting-fancy/slides/2">
+<h1><a href="http://127.0.0.1:8500/">Lobby</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content screenshot center jade" ref="getting-fancy/slides/3">
+<h1><a href="http://jade-lang.com">http://jade-lang.com</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content semantics smaller center incremental" ref="getting-fancy/slides/4">
+<h1>Semantics</h1>
+
+<ul>
+<li><h3><code>.jade</code> becomes ...</h3>
+
+<pre class="sh_javascript"><code>!!! 5
+html(lang="en")
+  head
+    title= pageTitle
+    script(type='text/javascript')
+      if (foo) {
+         bar()
+      }
+  body
+    h1 Jade
+    #container
+      - if (youAreUsingJade)
+        p You are amazing
+      - else
+        p Get on it!</code></pre></li>
+<li><h3>... generated HTML</h3>
+
+<pre class="sh_html"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;title&gt;Jade&lt;/title&gt;
+    &lt;script type="text/javascript"&gt;
+      if (foo) {
+      bar()
+      }
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Jade&lt;/h1&gt;
+    &lt;div id="container"&gt;
+      &lt;p&gt;You are amazing&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content incremental" ref="getting-fancy/slides/5">
+<h1>Express Integration</h1>
+
+<p>Set the 'view engine' in  <code>.configure()</code></p>
+
+<pre class="sh_javascript"><code>  app.set('view engine','jade');</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content incremental" ref="getting-fancy/slides/6">
+<h1>Express Integration</h1>
+
+<p>Handle the route with <code>.get()</code></p>
+
+<pre class="sh_javascript"><code>  app.get('/', function(req,res) {
+    res.render('view.jade');
+  });</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content incremental" ref="getting-fancy/slides/7">
+<h1>Express Integration</h1>
+
+<p>Update the <code>package.json</code></p>
+
+<pre class="sh_javascript"><code>  { ...
+    "dependencies" : {
+      ...
+      "jade" : "0.18"
+    }
+  }</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content jade-templating smaller incremental" ref="getting-fancy/slides/8">
+<h1>Templating</h1>
+
+<ul>
+<li><h4><code>views/template.jade</code></h4>
+
+<pre class="sh_javascript"><code>extends layout
+
+block title
+  | My Title
+block content
+  ul
+    li one
+    li two
+    li three</code></pre></li>
+<li><h4>+  <code>views/layout.jade</code></h4>
+
+<pre class="sh_javascript"><code>!!! 5
+html
+  head
+    title
+      block head
+  body
+    h1
+      block head
+    div.content
+      block content
+    div#footer
+      block footer
+        p General Footer</code></pre></li>
+<li><h4>= generated HTML</h4>
+
+<pre class="sh_html"><code>&lt;!DOCTYPE "html"&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My Title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;My Title&lt;/h1&gt;
+    &lt;div class="content"&gt;
+      &lt;ul&gt;
+        &lt;li&gt;one&lt;/li&gt;
+        &lt;li&gt;two&lt;/li&gt;
+        &lt;li&gt;three&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class="footer"&gt;
+      &lt;p&gt;General Footer&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content screenshot center lesscss" ref="getting-fancy/slides/9">
+<h1><a href="http://lesscss.org">lesscss.org</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content semantics smaller incremental" ref="getting-fancy/slides/10">
+<h1>Semantics</h1>
+
+<ul>
+<li><h4><code>public/styles.less</code></h4>
+
+<pre class="sh_css"><code>@bgcolor: #111;
+
+.rounded-corners (@radius: 5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+#header {
+  .rounded-corners;
+  background-color: @bgcolor * 3;
+
+  h1 {
+    .rounded-corners(10px);
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  p { font-size: 12px;
+    a { text-decoration: none;
+      &amp;:hover { 
+        border-width: 1px; 
+      }
+    }
+  }
+}</code></pre></li>
+<li><h4>generates <code>public/styles.css</code></h4>
+
+<pre class="sh_css"><code>#header {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  background-color: #333;
+}
+
+#header h1 {
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+#header p {
+  font-size: 12px;
+}
+
+#header p a {
+  text-decoration: none;
+}
+
+#header p a:hover {
+  border-width: 1px;
+}</code></pre></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content small" ref="getting-fancy/slides/11">
+<h1>Good In Browser ...</h1>
+
+<pre class="sh_html"><code>&lt;link rel="stylesheet/less" 
+      type="text/css" href="styles.less"&gt;
+&lt;script src="less.js" 
+        type="text/javascript"&gt;&lt;/script&gt;</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content small incremental" ref="getting-fancy/slides/12">
+<h1>... or <img src="/file/images/nodejs-logo.png" alt="nodejs"/></h1>
+
+<pre class="sh_javascript"><code>  var less = require('less');
+
+  less.render('.class { width: 1 + 1 }', 
+              function (e, css) {
+                console.log(css);
+  });</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="getting-fancy/slides/13">
+<h1>Express Integration</h1>
+
+<p>Setup in <code>configure()</code> BEFORE any static file configuration:</p>
+
+<pre class="sh_javascript"><code>app.use(express.compiler({ 
+  src : __dirname+'/public',
+  enable :['less'] 
+}));</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="getting-fancy/slides/14">
+<h1>Express Integration</h1>
+
+<p>Add the dependency in <code>package.json</code></p>
+
+<pre class="sh_javascript"><code>  { ...
+    "dependencies" : {
+      ...
+      "less" : "1.1"
+    }
+  }</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content command smaller" ref="getting-fancy/slides/15">
+<h1>server.js</h1>
+
+<pre class="sh_javascript"><code>var express = require('express');
+var app = express.createServer();
+
+app.configure(function(){
+  app.use(express.errorHandler({ showStack: true, 
+                                 dumpExceptions: true }));
+  app.set('view engine','jade');
+  app.use(express.compiler({ src:__dirname+'/public', 
+                             enable:['less'] }));
+  app.use(express.static(__dirname+'/public'));
+});
+
+app.get('/', function( req, res ) {
+  res.render('lobby');
+});
+
+app.listen( 8500 );</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content center subsection" ref="going-modular/slides/1">
+<h1>Going Modular</h1></div>
+</div><div class="slide" data-transition="none"><div class="content screenshot center highscores" ref="going-modular/slides/2">
+<h1><a href="http://127.0.0.1:8500">Adding Highscores</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="going-modular/slides/3">
+<h1>require()</h1>
+
+<pre class="sh_javascript"><code>var http = require('http');
+var express = require('express');</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="going-modular/slides/4">
+<h1>Writing your own</h1>
+
+<p><code>lib/foo.js</code></p>
+
+<pre class="sh_javascript"><code>exports.foo = function() {
+  console.log('foo!');
+}</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="going-modular/slides/5">
+<h1>Bringing it in</h1>
+
+<pre class="sh_javascript"><code>var foo = require('./lib/foo');
+
+foo.foo();</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="going-modular/slides/6">
+<h1>Make it Work for Both Browser and Server</h1>
+
+<pre class="sh_javascript"><code>(function(container) {
+  container.foo = ...
+})(typeof exports == undefined ? window : exports );</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="going-modular/slides/7">
+<h1>Middleware Aware</h1>
+
+<p>Great for filters, pre-loading, etc:</p>
+
+<pre class="sh_javascript"><code>app.get(path,
+        /* [function1, function2, ...,] */
+        function(req,res) {
+          ...
+    });
+
+function1(req, res, next) {
+  // return any value to interrupt or ...
+  return next(); // to continue normally!!
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="going-modular/slides/8">
+<h1>Authentication</h1>
+
+<pre class="sh_javascript"><code>function authenticate( req, res, next ) {
+  if ( ! req.session || ! req.session.nickname )
+    return res.render('login');
+  return next();
+}
+
+app.get('/game', authenticate, function( req, res ) {
+  res.render('nodebro.js.jade', 
+    {nickname:req.session.nickname});
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="going-modular/slides/9">
+<h1>Passing Data to Jade</h1>
+
+<p>Pass them in an object to <code>render()</code>:</p>
+
+<pre class="sh_javascript"><code>res.render('template' /*, 
+           { var1 : value, var2 : value, ... } */
+          );</code></pre>
+
+<p>In Jade</p>
+
+<pre class="sh_javascript"><code>// output as content of element
+h1= var1
+
+// or interpolate
+h2 The value of var2 is #{var2}</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="going-modular/slides/10">
+<h1>Putting it Altogether</h1>
+
+<pre class="sh_javascript"><code>app.get('/', authenticate, function( req, res ) {
+  return highscores.all( withScores );
+
+  function withScores( err, scores ) {
+    if ( err ) return res.error( err );
+    res.render('lobby', 
+               { nickname : req.session.nickname,
+                 scores : scores
+               });
+  }
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="going-modular/slides/11">
+<h1><code>post()</code>-ing Data</h1>
+
+<pre><code>POST /path
+param1=value1
+param2=value2
+param3=value3
+...
+</code></pre>
+
+<p>We can route to a handler</p>
+
+<pre class="sh_javascript"><code>app.post('path', function(req, res) {
+  /* req.body.paramName == value */
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="going-modular/slides/12">
+<h1>Submitting Scores</h1>
+
+<pre class="sh_javascript"><code>app.post('/win', authenticate, function( req, res ) {
+  return highscores.win( req.body.nickname, onSave );
+  function onSave( err ) {
+    if ( err ) return res.error( err );
+    res.send( 201 );
+  }
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content subsection center" ref="finally-websockets/slides/1">
+<h1>Websockets</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="finally-websockets/slides/2">
+<p><img src="./file/finally-websockets/html5-websockets-large.png" width="680" height="466" alt="html5-websockets"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="finally-websockets/slides/3">
+<h1>Pull</h1>
+
+<p><img src="./file/finally-websockets/pull.png" width="674" height="356" alt="Pull"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="finally-websockets/slides/4">
+<h1>Poll</h1>
+
+<p><img src="./file/finally-websockets/poll.png" width="674" height="385" alt="Poll"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="finally-websockets/slides/5">
+<h1>Websockets</h1>
+
+<p><img src="./file/finally-websockets/Bi-Directional.png" width="674" height="383" alt="Websockets"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content screenshot center w3c" ref="finally-websockets/slides/6">
+<h1><a href="http://dev.w3.org/html5/websockets/">W3C Draft</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="finally-websockets/slides/7">
+<h1>Standard Events</h1>
+
+<pre class="sh_javascript"><code>var connection = new WebSocket(/* url */);
+
+connection.onopen = /* function */;
+
+connection.onmessage = /* function(event) */;
+
+connection.onerror = /* function(error) */;
+
+connection.onclose = /* function */;</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content screenshot center socketio" ref="finally-websockets/slides/8">
+<h1><a href="http://socket.io">socket.io</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content center bullets incremental" ref="finally-websockets/slides/9">
+<h1>Features Great Compatibility</h1>
+
+<p>Has fallback depending on your browser</p>
+
+<ul>
+<li>Websockets</li>
+<li>Flash sockets</li>
+<li>Long Polling</li>
+<li>Short Polling</li>
+<li>... It usually just works!</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="finally-websockets/slides/10">
+<h1>Again, Great in Browser ...</h1>
+
+<pre class="sh_html"><code>&lt;script src="/socket.io/socket.io.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var socket = io.connect('http://localhost');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+&lt;/script&gt;</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="finally-websockets/slides/11">
+<h1>... And on Server!</h1>
+
+<pre class="sh_javascript"><code>var app = require('express').createServer()
+  , io = require('socket.io').listen(app);
+
+app.listen(80);
+
+io.sockets.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="finally-websockets/slides/12">
+<h1>on() Events</h1>
+
+<pre class="sh_javascript"><code>// connection event on all sockets
+io.sockets.on('connection', function(socket) {
+  // setup to handle your own events
+  socket.on('foo', function(data) {
+    // socket.io handles deserialization of data
+  });
+
+  // and gracefully handle disconnections
+  socket.on('disconnect',function() {
+  });
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="finally-websockets/slides/13">
+<h1>Send events with <code>emit()</code></h1>
+
+<pre class="sh_javascript"><code>// data is automatically serialized!
+socket.emit('foo', data);</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content semantics smaller" ref="finally-websockets/slides/14">
+<h1>An Example</h1>
+
+<ul>
+<li><h3>Server</h3>
+
+<pre class="sh_javascript"><code>io.sockets.on('connection', 
+  function (socket) {
+    socket
+      .on('my other event', 
+          function (data) {
+            console.log(data);
+      })
+      .emit('news',
+            { hello : 'world' });
+});</code></pre></li>
+<li><h3>Client</h3>
+
+<pre class="sh_javascript"><code>socket.on('news', 
+  function (data) {
+    socket.emit('my other event', 
+                { my: 'data' });
+});</code></pre></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center screenshot online" ref="finally-websockets/slides/15">
+<h1><a href="http://localhost:8500">Who's Online</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content smaller incremental" ref="finally-websockets/slides/16">
+<h1>Use Namespace to Handle Just Lobby Connections</h1>
+
+<ul>
+<li><p>Client</p>
+
+<pre class="sh_javascript"><code>io.connect('/lobby');</code></pre></li>
+<li><p>Server</p>
+
+<pre class="sh_javascript"><code>var lobby =
+  io.of('/lobby').on('connection',
+    function(socket) {
+      ...
+      // send a message to all
+      lobby.emit('message', data);
+      ...
+  });</code></pre></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="finally-websockets/slides/17">
+<h1>Build Each Page Like It's Own Little App</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="finally-websockets/slides/18">
+<h1>Multiplayer Game!</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="finally-websockets/slides/19">
+<h1>Javascript Everywhere Allows You To Move Logic From Client to Server ... and Back!</h1></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="finally-websockets/slides/20">
+<h1>Express: <code>get()</code>-ing Parameters</h1>
+
+<p>Parameters can be pulled from the path:</p>
+
+<pre class="sh_javascript"><code>app.get('/path/:foo/:bar', function(req, res) {
+  // var fooValue = req.params.foo;
+  // var barValue = req.params.bar;
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="finally-websockets/slides/21">
+<h1>Connecting to a Game</h1>
+
+<pre class="sh_javascript"><code>app.get('/game/:player/:id', 
+  authenticate, 
+  function( req, res ) {
+    res.render('nodebro.js.jade', {
+      nickname:req.session.nickname,
+      isHost : req.params.player == '1' ? true : false,
+      gameId:req.params.id
+  });
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="finally-websockets/slides/22">
+<h1>Client Sends Game Id</h1>
+
+<pre class="sh_javascript"><code>game = io.connect('/game');
+
+game.on('connect', function () {
+  game.emit('join', 
+            { nickname:nickname, 
+              gameId:gameId, 
+              isHost:isHost});
+    ..</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="finally-websockets/slides/23">
+<h1>Server <code>join()</code>s them to a Room</h1>
+
+<pre class="sh_javascript"><code>var gameSockets = 
+  io.of('/game')
+    .on('connection', function(socket) {
+      socket.on('join', function(data) {
+        var room = socket.join( data.gameId );
+        ...</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="finally-websockets/slides/24">
+<h1>Game Events sent <code>to(room)</code></h1>
+
+<pre class="sh_javascript"><code>function gameEvent( type, data ) {
+  sockets.to(gameId).emit( type, data );
+}</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content subsection center" ref="testing/slides/1">
+<h1>Testing</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center screenshot jasmine" ref="testing/slides/2">
+<h1><a href="http://http://pivotal.github.com/jasmine/">Jasmine</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="testing/slides/3">
+<h1>Jasmine Sample</h1>
+
+<pre class="sh_javascript"><code>describe('some suite', function () {
+
+  var suiteWideFoo;
+
+  beforeEach(function () {
+    suiteWideFoo = 0;
+  });
+
+  describe('some nested suite', function() {
+    var nestedSuiteBar;
+    beforeEach(function() {
+      nestedSuiteBar=1;
+    });
+
+    it('nested expectation', function () {
+      expect(suiteWideFoo).toEqual(0);
+      expect(nestedSuiteBar).toEqual(1);
+    });
+
+  });
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="testing/slides/4">
+<h1><img src="/file/images/nodejs-logo.png" alt="Node"/> Integration</h1>
+
+<ul>
+<li><p><a href="http://github.com/mhevery/jasmine-node">github.com/mhevery/jasmine-node</a></p></li>
+<li><p>BUT ...</p></li>
+<li><p>Can't Run Individual Tests</p></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center screenshot mocha" ref="testing/slides/5">
+<h1><a href="http://visionmedia.github.com/mocha/">Mocha</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="testing/slides/6">
+<h1>Mocha Sample</h1>
+
+<pre class="sh_javascript"><code>describe('Array', function(){
+  describe('#indexOf()', function(){
+    it('should return -1 when the value is not present', 
+      function(){
+        [1,2,3].indexOf(5).should.equal(-1);
+        [1,2,3].indexOf(0).should.equal(-1);
+    })
+  })
+})</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="testing/slides/7">
+<h1>Mocha Asynchronous</h1>
+
+<p>Call <code>done()</code> when complete:</p>
+
+<pre class="sh_javascript"><code>describe('#find()', function(){
+  it('respond with matching records', function(done){
+    db.find({ type: 'User' }, function(err, res){
+      if (err) return done(err);
+      res.should.have.length(3);
+      done();
+    })
+  })
+})</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="testing/slides/8">
+<h1>Full Integration Testing</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center screenshot zombie" ref="testing/slides/9">
+<h1><a href="http://zombie.labnotes.org/">Zombie</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content smaller" ref="testing/slides/10">
+<h1>Zombie Sample</h1>
+
+<pre class="sh_javascript"><code>var zombie = require("zombie");
+var assert = require("assert");
+
+// Load the page from localhost
+zombie.visit("http://localhost:3000/", 
+  function (e, browser, status) {
+
+  // Fill email, password and submit form
+  browser.
+    fill("email", "zombie@underworld.dead").
+    fill("password", "eat-the-living").
+    pressButton("Sign Me Up!", 
+      function(e, browser, status) {
+
+      // Form submitted, new page loaded.
+      assert.equal(status, 200);
+      assert.equal(browser.text("title"), 
+        "Welcome To Brains Depot");
+    })
+
+});</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="testing/slides/11">
+<h1>But</h1>
+
+<ul>
+<li>It EMULATES the DOM</li>
+<li>Introducing Real HTML5 and JS crashed it!</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content screenshot center jasmine-headless-webkit" ref="testing/slides/12">
+<h1><a href="http://github.com/mhevery/jasmine-node">Jasmine Headless Webkit</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content subsection" ref="deploying-your-app/slides/1">
+<h1>Deploying Your App</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="deploying-your-app/slides/2">
+<p><img src="./file/deploying-your-app/Joyent-logo.png" width="540" height="146" alt="Joyent"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="deploying-your-app/slides/3">
+<h1>EngineYard</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="deploying-your-app/slides/4">
+<h1><a href="http://heroku.com">Heroku</a></h1>
+
+<p>Include a <code>Procfile</code></p>
+
+<pre><code>web: node server.js
+</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content center screenshot amazon-ec2" ref="deploying-your-app/slides/5">
+<h1><a href="http://blog.carbonfive.com/2011/09/01/deploying-node-js-on-amazon-ec2/">Installing on EC2</a></h1></div>
+</div><div class="slide" data-transition="none"><div class="content subsection center" ref="gotchas/1">
+<h1>Gotchas</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="gotchas/2">
+<h1>Debugging is Hard</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="gotchas/3">
+<h1>Dependency Instability</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="gotchas/4">
+<h1>Getting Lost in the Stack</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="gotchas/5">
+<h1>Deep Nesting</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center subsection" ref="qa">
+<h1>Questions?</h1>
+
+<ul>
+<li>Alex Cruikshank (<a href="http://twitter.com/sivoh">@sivoh</a>)</li>
+<li>Rudy Jahchan (<a href="http://twitter.com/rudy">@rudy</a>)</li>
+</ul>
+</div>
+</div></div>
+
+</body>
+</html>
