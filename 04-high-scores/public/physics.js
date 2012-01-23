@@ -19,11 +19,13 @@ container.Physics = function( g, f ) {
   function update( start, dt ) {
     try {
       var events = [], evt = { t:current_t, state:current_state, cause:{type:'start'}}, 
-          end = start + dt, seen = {};
+          end = start + dt;
 
       // skip ahead to state at t
-      while ( evt.t < start )
-        evt = next_event( evt.state, evt.t, start, alterations, seen );
+      for ( var count=0; evt.t < start; count++ ) {
+        evt = next_event( evt.state, evt.t, start, alterations, evt.cause );
+        if ( count > 100 ) throw new Error("Too many events.  Probable infinte loop.");
+      }
       current_state = evt.state;
       current_t = start;
 
@@ -31,8 +33,13 @@ container.Physics = function( g, f ) {
       evt.cause.type = 'start';
       events.push( simplify_event( evt ) );
       var tempAlterations = alterations.slice(0)
-      while ( evt.t < end )
-        events.push( simplify_event( evt = next_event( evt.state, evt.t, end, tempAlterations, seen ) ) );
+      for ( var count=0; evt.t < end; count++ ) {
+        events.push( simplify_event( evt = next_event( evt.state, evt.t, end, tempAlterations, evt.cause ) ) );
+        if ( count > 100 ) {
+          console.log( evt );
+          throw new Error("Too many events.  Probable infinte loop.");
+        }
+      }
 
       return events;
     } catch ( error ) { console.log( error ); }
@@ -66,8 +73,8 @@ container.Physics = function( g, f ) {
     return out;
   }
 
-  function next_event( state, start, end, alterations, seen ) {
-    var collision = next_collision( state, start, alterations, seen );
+  function next_event( state, start, end, alterations, last_collision ) {
+    var collision = next_collision( state, start, alterations, last_collision );
 
     if ( ! collision || start + collision.t > end )
       return { t:end, state:project( state, start, end ), cause:{type:'end'} };
@@ -128,18 +135,18 @@ container.Physics = function( g, f ) {
   }
 
   function xforce(box) {
-    if ( box.fixed) return 0;
+    if ( box.fixed ) return 0;
     var xforce = box.resting && box.friction && Math.abs(box.vx) > .001 ? (box.vx > 0 ? -f : f) + box.ax : box.ax
     return ( box.maxVx && Math.abs(box.vx) >= box.maxVx && box.vx*xforce > 0 ) ? 0 : xforce;
   }
 
   function yforce(box) {
-    if ( box.fixed) return 0;
+    if ( box.fixed ) return 0;
     var yforce = box.resting ? Math.max(box.ay+g,0) : g + box.ay;
     return ( box.maxVy && Math.abs(box.vy) >= box.maxVy && box.vy*yforce > 0 ) ? 0 : yforce;
   }
 
-  function next_collision( state, start, alterations, existing ) {
+  function next_collision( state, start, alterations, last_collision ) {
     var potential_events=[], collision, seen={}, b1, b2, tb, times, t, fx, fy, mx, my;
     for (var id1 in state) {
       if ( state[id1].fixed ) continue;
@@ -147,16 +154,16 @@ container.Physics = function( g, f ) {
       b1 = state[id1];
 
       fx = xforce(b1); mx = fx > 0 ? b1.maxVx : -b1.maxVx; t = (mx-b1.vx)/fx;
-      if ( mx && fx && future_event(existing,'maxvx',t,b1.id) ) 
+      if ( mx && fx && future_event(last_collision,'maxvx',t,b1.id) ) 
         potential_events.push( {t:t, type:'maxvx', b1:b1.id} );
 
       fy = yforce(b1); my = fy > 0 ? b1.maxVy : -b1.maxVy; t = (my-b1.vy)/fy;
-      if ( my && fy && future_event(existing,'maxvy',t,b1.id) ) 
+      if ( my && fy && future_event(last_collision,'maxvy',t,b1.id) ) 
         potential_events.push( {t:t, type:'maxvy', b1:b1.id} );
 
       if ( b1.resting && b1.friction && b1.vx ) {
         t = -b1.vx/xforce(b1);
-        if ( future_event(existing,'s',t,b1.id) ) potential_events.push( {t:t, type:'s', b1:b1.id} );
+        if ( future_event(last_collision,'s',t,b1.id) ) potential_events.push( {t:t, type:'s', b1:b1.id} );
       }
 
       for (var id2 in state) {
@@ -169,7 +176,7 @@ container.Physics = function( g, f ) {
           else collide(b1,b2,times);
 
           collision = bestTime( times, b1, b2 );
-          if ( collision && future_event(existing,collision.type,collision.t,b1.id,b2.id) ) 
+          if ( collision && future_event(last_collision,collision.type,collision.t,b1.id,b2.id) ) 
             potential_events.push( collision );
         }
       }
@@ -181,16 +188,14 @@ container.Physics = function( g, f ) {
     if ( ! potential_events.length )
     return null;      
     var evt = potential_events.sort(function(e1,e2) { return e1.t - e2.t; })[0];
-    existing[event_key(evt.type,evt.b1,evt.b2)] = evt.t;
     return evt;
   }
 
-  function future_event(seen,type,t,id1,id2) {
+  // this method exists to ensure we permit simultaneous events, but don't return the last event (putting us in an infinite loop).
+  function future_event(last_collision,type,t,id1,id2) {
     if ( t < -0.00001 ) return false;
-    var time = seen[event_key(type,id1,id2)];
-    return time === undefined || Math.abs(time-t) > 0.00001;
+    return ( t > 0.00001 || last_collision.type != type || last_collision.b1 != id1 || id2 != last_collision.b2 );
   }
-  function event_key(type,id1,id2) { return type+'-'+id1+(id2?'-'+id2:''); }
 
   function collide(b1,b2,times) {
     times.lr = segment_collide( b1, b2, 0 );

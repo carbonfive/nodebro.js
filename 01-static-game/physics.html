@@ -34,12 +34,23 @@
       engine.addFixture( 0, 'right-wall', {x:600, y:0, width:5, height:800} );
 
       var coinIndex = 0;
-      engine.addBox( 0, 'coin-'+(coinIndex++), { x:80, y:385, width:20, height:20, vx:400, friction:false });
+      engine.addBox( 0, 'coin-'+(coinIndex++), { x:0, y:55, width:20, height:20, ax:80, maxVy:100, friction:false });
+      engine.addBox( 0, 'coin-'+(coinIndex++), { x:300, y:55, width:20, height:20, ax:80, maxVy:100, friction:false });
+      engine.addBox( 0, 'coin-'+(coinIndex++), { x:450, y:55, width:20, height:20, ax:80, maxVy:100, friction:false });
+      /*
+      for ( var i=0; i < 2; i++ ) {
+        engine.alter( i+1, 'coin-0', {vy:800, ay:1500} );
+        engine.alter( i+1, 'coin-1', {vy:800, ay:1500} );
+        engine.alter( i+1, 'coin-2', {vy:800, ay:1500} );
+      }
+      */
+      /*
       engine.addBox( 2, 'coin-'+(coinIndex++), { x:550, y:385, width:20, height:20, vx:-400, friction:false });
       engine.addBox( 3, 'coin-'+(coinIndex++), { x:1, y:385, width:20, height:20, vx:400, friction:false });
+      */
 
 
-      drawEvents(engine.update(0,5));
+      drawEvents(engine.update(0,2));
     }
 
     function draw() {
@@ -51,7 +62,7 @@
     }
 
     function drawEvents(events) {
-      console.log(events);
+      for ( var i=0, e; e=events[i]; i++ ) if (e.altered['coin-0']) console.log(e.time, e.type,e.altered['coin-0']);
       var ctx = el('display').getContext('2d');
       ctx.save();
       ctx.translate(0,ctx.canvas.height); ctx.scale(1,-1);

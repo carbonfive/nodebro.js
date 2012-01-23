@@ -1,6 +1,7 @@
 var game;  // socket connecting to game controller
 var timeOffset; // system time minus server time
 
+var timediff = (5000 - 10000*Math.random())|0;
 
 function el(id) { return document.getElementById(id); }
 function range(n,f) { var a=[]; for (var i=0; i<n; i++) a.push(f(i)); return a; }
@@ -22,7 +23,7 @@ function ViewControl() {
   }
 
   function draw() {
-    var time = new Date().getTime() / 1000 + timeOffset, altered, type;
+    var time = (new Date().getTime()-timediff) / 1000 - timeOffset, altered, type;
     while (events[0] && time > events[0].time) {
       for (var id in events[0].altered) {
         altered = events[0].altered[id];
@@ -180,7 +181,7 @@ function init() {
   game = io.connect('/game');
 
   game.on('connect', function () {
-    var tickTime = new Date().getTime();
+    var tickTime = (new Date().getTime()-timediff);
     game.emit('tick');
     game.emit('join', {nickname:nickname, gameId:gameId, isHost:isHost});
 
@@ -194,7 +195,7 @@ function init() {
     handle('gameover', view.gameover);
     handle('startGame', view.startGame);
     handle('tock', function(serverTime) {
-      var tockTime = new Date().getTime();
+      var tockTime = (new Date().getTime()-timediff);
       timeOffset = (tickTime + (tockTime - tickTime)/2 - serverTime)/1000;
     });
   });
