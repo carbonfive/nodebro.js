@@ -52,6 +52,9 @@
 
 # ![html5-websockets](html5-websockets.png) + ![nodejs-logo](nodejs-logo.png)
 
+!SLIDE smaller
+# [github.com/carbonfive/nodebro.js](http://github.com/carbonfive/nodebro.js)
+
 !SLIDE
 # HTML5 Websockets
 ![html5](html5-websockets-large.png)
