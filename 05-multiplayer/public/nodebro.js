@@ -22,7 +22,7 @@ function ViewControl() {
   }
 
   function draw() {
-    var time = new Date().getTime() / 1000 + timeOffset, altered, type;
+    var time = new Date().getTime() / 1000 - timeOffset, altered, type;
     while (events[0] && time > events[0].time) {
       for (var id in events[0].altered) {
         altered = events[0].altered[id];
@@ -196,6 +196,7 @@ function init() {
     handle('tock', function(serverTime) {
       var tockTime = new Date().getTime();
       timeOffset = (tickTime + (tockTime - tickTime)/2 - serverTime)/1000;
+      console.log("TIME OFFSET:", timeOffset);
     });
   });
 

@@ -1,17 +1,34 @@
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('highscores');
+var mongodb = require('mongodb');
 
-exports.all = function( callback ) {
-  db.all('SELECT * FROM highscores ORDER BY score desc', callback );
-};
+var connection = new mongodb.Db('nodebrojs', new mongodb.Server("127.0.0.1", 27017, {auto_reconnect: true}), {});
+var db;
 
-exports.win = function( nickname, callback ) {
-  return db.get('SELECT score from highscores WHERE nickname=?', nickname, withResult );
-  function withResult( err, result ) {
-    if ( err ) return callback(err);
-    if ( result )
-      db.run('UPDATE highscores SET score=?, updated=? where nickname=?', result.score+1, new Date(), nickname, callback );
-    else
-      db.run('INSERT INTO highscores (nickname, updated, score) VALUES (?,?,?)', nickname, new Date(), 1, callback );
+function connect( cb ) {
+  if ( db ) return cb(null, db);
+  connection.open(function(err, db_) {
+    return cb(err, db = db_);
+  })
+}
+
+function highscores( cb ) {
+  return connect( withDB );
+  function withDB( err, db ) {
+    db.collection('highscores', cb);
+  }
+}
+
+exports.all = function( cb ) {
+  return highscores( withHighscores );
+  function withHighscores( err, highscores ) {
+    if ( err ) return cb(err);
+    highscores.find().toArray(cb);
+  }
+}
+
+exports.win = function( nickname, cb ) {
+  return highscores( withHighscores );
+  function withHighscores( err, highscores ) {
+    if ( err ) return cb(err);
+    highscores.update( {nickname:nickname}, {$set:{updated:new Date()}, $inc:{score:1}}, {upsert:true}, cb );
   }
 }

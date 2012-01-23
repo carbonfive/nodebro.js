@@ -6,6 +6,6 @@
     "jade"    : "0.18",
     "less"    : "1.1",
     "cookie-sessions" : "0",
-    "sqlite3" : "2.1"
+    "mongodb" : "0"
   }
 }
