@@ -12,23 +12,11 @@
   source: [Indeed](http://indeed.com)
 
 !SLIDE bullets incremental
-# Growth
-
-* ![Node Committers](node-commits-committers.jpg)
-
-  source: [Mashable](http://mashable.com/2011/03/10/node-js/)
-
-!SLIDE bullets incremental
 # Libraries
 
 * ![Libraries](npm-registry.png)
 
   source: [NPM Registry](http://search.npmjs.org/)
-
-!SLIDE bullets incremental
-# #1 Watched
-
-* ![!Most Watched](most-watched.png)
 
 !SLIDE
 ![brogrammer](brogrammer.jpg)
@@ -47,7 +35,7 @@
 # It's "Fast"
 
 !SLIDE incremental bullets
-# It's Concurrency
+# Its Concurrency
 
 !SLIDE center
 # Concurrency
@@ -170,7 +158,7 @@ source: [Mixu's Blog](http://blog.mixu.net/2011/02/01/understanding-the-node-js-
     Longest transaction:            2.01
     Shortest transaction:           2.00
 
-!SLIDE bullets incremental small
+!SLIDE bullets small
 # It's Not the Only <br />Event(ed I/O) In Town
 
 * Ruby - [EventMachine](http://http://rubyeventmachine.com/)

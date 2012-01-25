@@ -46,6 +46,7 @@ Has fallback depending on your browser
 * Long Polling
 * Short Polling
 * ... It usually just works!
+
 !SLIDE smaller
 # Again, Great in Browser ...
 
@@ -150,7 +151,7 @@ Has fallback depending on your browser
 !SLIDE
 # Build Each Page Like It's Own Little App
 
-!SLIDE
+!SLIDE subsection center
 # Multiplayer Game!
 
 !SLIDE

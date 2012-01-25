@@ -49,37 +49,6 @@
         </body>
       </html>
 
-!SLIDE incremental 
-# Express Integration
-
-Set the 'view engine' in  <code>.configure()</code>
-
-      @@@ javascript
-      app.set('view engine','jade');
-
-!SLIDE incremental
-# Express Integration 
-
-Handle the route with <code>.get()</code>
-
-      @@@ javascript
-      app.get('/', function(req,res) {
-        res.render('view.jade');
-      });
-
-!SLIDE incremental
-# Express Integration
-
-Update the <code>package.json</code>
-
-      @@@javascript
-      { ...
-        "dependencies" : {
-          ...
-          "jade" : "0.18"
-        }
-      }
-
 !SLIDE jade-templating smaller incremental
 # Templating
 
@@ -221,17 +190,6 @@ Update the <code>package.json</code>
                     console.log(css);
       });
 
-!SLIDE 
-# Express Integration
-
-Setup in <code>configure()</code> BEFORE any static file configuration:
-
-    @@@ javascript
-    app.use(express.compiler({ 
-      src : __dirname+'/public',
-      enable :['less'] 
-    }));
-
 !SLIDE
 # Express Integration
 
@@ -241,6 +199,7 @@ Add the dependency in <code>package.json</code>
       { ...
         "dependencies" : {
           ...
+          "jade" : "0.18",
           "less" : "1.1"
         }
       }

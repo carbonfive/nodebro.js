@@ -11,4 +11,4 @@
 # Getting Lost in the Stack
 
 !SLIDE
-# Deep Nesting
+# Deeply Nested Callbacks

@@ -1,6 +1,3 @@
-!SLIDE cover center
-# NaN
-
 !SLIDE subsection center
 # Getting Real(-time) with Node.js
 ## #nodebrojs
@@ -17,27 +14,6 @@
   Rudy<br />Jahchan
 
   [@rudy](http://twitter.com/rudy)
-
-!SLIDE
-# Carbon Five
-
-![Carbon Five](c5.png)
-
-[http://carbonfive.com](http://carbonfive.com)
-
-[@carbonfive](http://twitter.com/carbonfive)
-
-!SLIDE
-![HTML5](html5.png)
-
-!SLIDE comparison center incremental
-* ![Carbon Five](c5.png)
-
-  2000
-
-* ![HTML5](html5.png)
-
-  2010
 
 !SLIDE bullets incremental
 # Our Goal Today

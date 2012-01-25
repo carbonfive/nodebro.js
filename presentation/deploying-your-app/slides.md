@@ -1,4 +1,4 @@
-!SLIDE subsection
+!SLIDE subsection center
 # Deploying Your App
 
 !SLIDE

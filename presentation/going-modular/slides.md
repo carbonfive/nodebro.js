@@ -37,6 +37,9 @@
       container.foo = ...
     })(typeof exports == undefined ? window : exports );
 
+!SLIDE subsection center
+# Integrating
+
 !SLIDE smaller
 # Middleware Aware
 

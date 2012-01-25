@@ -25,34 +25,6 @@
 !SLIDE center screenshot expressjs
 # [http://expressjs.com](http://expressjs.com)
 
-!SLIDE 
-# require('express')
-
-    @@@ javascript
-    var express = require('express');
-    var app = express.createServer();
-
-!SLIDE
-# .configure()
-
-    @@@ javascript
-    app.configure(function() {
-      app.use( /* functionality */);
-      app.set( /* setting[, value] */ );
-      app.enable( /* setting */ );
-      app.disable( /* setting */ );
-    });
-
-    app.configure('development', function() {
-      ...
-    });
-
-!SLIDE
-# .listen()
-
-    @@@ javascript
-    app.listen(/* port[, callback] */);
-
 !SLIDE command small
 # server.js
 
