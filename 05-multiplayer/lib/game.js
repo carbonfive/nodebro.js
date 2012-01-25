@@ -152,7 +152,7 @@ function GameControl( gameId, sockets ) {
 
   function update() {
     if ( gameOver ) return;
-    state = engine.update( setTime()-.5, 2 );
+    state = engine.update( setTime()-.5, 4 );
     if ( ! state ) return;
 
     timers.forEach(clearTimeout);
