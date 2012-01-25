@@ -153,6 +153,7 @@ function GameControl( gameId, sockets ) {
   function update() {
     if ( gameOver ) return;
     state = engine.update( setTime()-.5, 2 );
+    if ( ! state ) return;
 
     timers.forEach(clearTimeout);
     timers.length = 0;
